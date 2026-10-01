@@ -14,6 +14,7 @@ function pub(overrides: Partial<Publication> = {}): Publication {
     contentHash: "x",
     jurisdiction: "US",
     sectors: ["banking", "cyber"],
+    ingestedAt: "2024-11-02T00:00:00Z",
     ...overrides,
   };
 }
