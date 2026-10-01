@@ -1,18 +1,20 @@
 import type { Severity } from "@/lib/types";
 import { cn } from "@/lib/cn";
 
+// Muted, WCAG-AA legible severity badges: dark text on tinted backgrounds,
+// restrained like a government service rather than a neon dashboard.
 const STYLES: Record<Severity, string> = {
-  critical: "bg-red-500/15 text-red-300 border-red-500/40",
-  high: "bg-orange-500/15 text-orange-300 border-orange-500/40",
-  medium: "bg-amber-500/15 text-amber-300 border-amber-500/40",
-  low: "bg-slate-500/15 text-slate-300 border-slate-500/40",
+  critical: "bg-sev-critical-bg text-sev-critical-fg border-sev-critical-fg/30",
+  high: "bg-sev-high-bg text-sev-high-fg border-sev-high-fg/30",
+  medium: "bg-sev-medium-bg text-sev-medium-fg border-sev-medium-fg/30",
+  low: "bg-sev-low-bg text-sev-low-fg border-sev-low-fg/30",
 };
 
 export function SeverityBadge({ severity }: { severity: Severity }) {
   return (
     <span
       className={cn(
-        "inline-flex items-center rounded-full border px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wider",
+        "inline-flex items-center rounded border px-2 py-0.5 text-xs font-semibold uppercase tracking-wider",
         STYLES[severity],
       )}
     >

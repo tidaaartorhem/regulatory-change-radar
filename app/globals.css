@@ -1,31 +1,60 @@
 @import "tailwindcss";
 
-:root {
-  --background: #060a13;
-  --foreground: #e8eef7;
-  --panel: #0b1220;
-  --panel-2: #0e1628;
-  --border: #1b2740;
-  --accent: #38bdf8;
-  --accent-2: #818cf8;
+/*
+ * Regulatory Change Radar — "official service" design system.
+ * Light theme with federal design cues (USWDS / Canada.ca):
+ * white paper surfaces, #f8f9fa canvas, high-contrast ink text,
+ * federal navy header (#26374a), USWDS primary blue (#005ea2),
+ * restrained muted severity badges (WCAG-AA legible), system sans stack.
+ */
+@theme {
+  --color-paper: #ffffff;
+  --color-canvas: #f8f9fa;
+  --color-ink: #1b1b1b;
+  --color-ink-soft: #565c65;
+  --color-ink-faint: #71767e;
+  --color-line: #dfe1e2;
+  --color-line-strong: #a9aeb1;
+  --color-navy: #26374a;
+  --color-navy-deep: #1a2733;
+  --color-primary: #005ea2;
+  --color-primary-dark: #1a4480;
+  --color-primary-darker: #162e51;
+  --color-primary-tint: #e7f0f9;
+  --color-focus: #2491ff;
+
+  --color-sev-critical-bg: #f9dede;
+  --color-sev-critical-fg: #8f1d1d;
+  --color-sev-high-bg: #fdebd3;
+  --color-sev-high-fg: #8a3c00;
+  --color-sev-medium-bg: #fdf2c0;
+  --color-sev-medium-fg: #5f4c00;
+  --color-sev-low-bg: #eef1f4;
+  --color-sev-low-fg: #3d4551;
+
+  --color-tag-bg: #eef0f7;
+  --color-tag-fg: #3f4c6b;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+html {
+  font-size: 16px;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--color-canvas);
+  color: var(--color-ink);
   font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
-    Helvetica, Arial, sans-serif;
+    "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
 }
 
-.radar-grid {
-  background-image:
-    radial-gradient(circle at 50% 40%, rgba(56, 189, 248, 0.08), transparent 60%),
-    linear-gradient(rgba(56, 189, 248, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(56, 189, 248, 0.05) 1px, transparent 1px);
-  background-size: 100% 100%, 44px 44px, 44px 44px;
+/* Visible keyboard focus everywhere — a government-site must-have. */
+:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: #bfe3ff;
 }
