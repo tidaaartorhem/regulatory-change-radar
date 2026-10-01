@@ -1,10 +1,9 @@
-import type {
-  Briefing,
-
-  ControlMapping,
-  Publication,
-  Severity,
-} from "@/lib/types";
+import Link from "next/link";
+import type { Briefing, Publication, Severity } from "@/lib/types";
+import {
+  aggregateActionItems,
+  dueLabel,
+} from "@/lib/actionItems";
 
 const SEV_DOT: Record<Severity, string> = {
   critical: "#8f1d1d",
@@ -239,122 +238,160 @@ function ActivityTimeline({
   );
 }
 
-/** Control-impact heatmap — top controls × most recent publications. */
-function ControlHeatmap({
+/**
+ * Action items — every remediation step from every briefing's action plan,
+ * aggregated into one prioritized view: overall completion, per-phase
+ * progress, urgency (overdue / due within 7 days from the severity SLAs),
+ * and the most urgent open actions with links back to their publications.
+ */
+function ActionItemsOverview({
   publications,
-  mappings,
+  briefings,
 }: {
   publications: Publication[];
-  mappings: ControlMapping[];
+  briefings: Briefing[];
 }) {
-  const recent = [...publications]
-    .sort((a, b) => +new Date(b.publishedAt) - +new Date(a.publishedAt))
-    .slice(0, 12);
-  const countByControl = new Map<string, number>();
-  for (const m of mappings)
-    countByControl.set(m.controlId, (countByControl.get(m.controlId) ?? 0) + 1);
-  const controls = [...countByControl.entries()]
-    .sort((a, b) => b[1] - a[1])
-    .slice(0, 12)
-    .map(([id]) => id);
-  const scoreOf = new Map<string, number>();
-  for (const m of mappings) scoreOf.set(`${m.publicationId}|${m.controlId}`, m.score);
+  const { total, done, open, pct, byPhase, overdue, dueSoon, urgent, daysUntil } =
+    aggregateActionItems(publications, briefings);
 
-  const cell = 40;
-  const labelW = 170;
-  const colLabelH = 110;
-  const W = labelW + recent.length * cell + 20;
-  const H = colLabelH + controls.length * cell + 10;
-
-  const fill = (score: number) => {
-    // paper → primary tint → primary
-    if (score <= 0) return "#f8f9fa";
-    const t = Math.min(1, score);
-    const r = Math.round(231 - t * (231 - 0));
-    const g = Math.round(240 - t * (240 - 94));
-    const b = Math.round(249 - t * (249 - 162));
-    return `rgb(${r},${g},${b})`;
+  const dueClass = (iso: string) => {
+    const d = daysUntil(iso);
+    if (d < 0) return "text-sev-critical-fg font-semibold";
+    if (d <= 7) return "text-sev-high-fg font-semibold";
+    return "text-ink-soft";
   };
 
   return (
     <ChartCard
-      title="Control-impact heatmap"
-      description="Which controls the most recent publications hit hardest (mapping confidence)."
+      title="Action items"
+      description="Every remediation step across the feed, aggregated from each briefing's action plan and prioritized by severity and due date."
     >
-      {controls.length === 0 || recent.length === 0 ? (
-        <p className="text-sm text-ink-soft">No mappings to display yet.</p>
+      {total === 0 ? (
+        <p className="text-sm text-ink-soft">No action plans yet.</p>
       ) : (
-        <div className="overflow-x-auto">
-          <svg
-            viewBox={`0 0 ${W} ${H}`}
-            className="min-w-[600px] w-full"
-            role="img"
-            aria-label="Heatmap of control mapping confidence across recent publications"
-          >
-            {recent.map((p, col) => (
-              <text
-                key={p.id}
-                x={labelW + col * cell + cell / 2}
-                y={colLabelH - 8}
-                textAnchor="end"
-                fontSize={11}
-                fill="#565c65"
-                transform={`rotate(-45 ${labelW + col * cell + cell / 2} ${colLabelH - 8})`}
+        <>
+          <div className="mb-5">
+            <div className="mb-1.5 flex items-baseline justify-between">
+              <span className="text-[13px] font-semibold text-ink-soft">
+                Overall completion
+              </span>
+              <span className="font-mono text-[13px] text-ink">
+                {done} of {total} · {pct}%
+              </span>
+            </div>
+            <div
+              className="h-3 overflow-hidden rounded-sm bg-canvas ring-1 ring-line"
+              role="progressbar"
+              aria-valuenow={pct}
+              aria-valuemin={0}
+              aria-valuemax={100}
+              aria-label={`${done} of ${total} action items complete`}
+            >
+              <div
+                className="h-full bg-primary"
+                style={{ width: `${pct}%` }}
+              />
+            </div>
+          </div>
+
+          <div className="mb-5 grid grid-cols-3 gap-3">
+            {byPhase.map((p) => (
+              <div
+                key={p.phase}
+                className="rounded-sm border border-line bg-canvas p-3"
               >
-                {`${sourceShort(p.sourceId)} ${new Date(p.publishedAt).toLocaleDateString("en-US", { month: "numeric", day: "numeric" })}`}
-                <title>{p.title}</title>
-              </text>
+                <p className="text-[13px] font-bold text-navy">{p.phase}</p>
+                <p className="mt-0.5 font-mono text-[13px] text-ink">
+                  {p.done}/{p.total} done
+                </p>
+                <div className="mt-2 h-2 overflow-hidden rounded-sm bg-paper ring-1 ring-line">
+                  <div
+                    className="h-full bg-primary"
+                    style={{
+                      width: `${
+                        p.total === 0
+                          ? 0
+                          : Math.round((p.done / p.total) * 100)
+                      }%`,
+                    }}
+                  />
+                </div>
+              </div>
             ))}
-            {controls.map((controlId, row) => (
-              <g key={controlId}>
-                <text
-                  x={labelW - 8}
-                  y={colLabelH + row * cell + cell / 2 + 4}
-                  textAnchor="end"
-                  fontSize={11}
-                  fontFamily="ui-monospace, monospace"
-                  fill="#1a4480"
+          </div>
+
+          <div className="mb-5 flex flex-wrap gap-3">
+            <span className="inline-flex items-center gap-2 rounded-sm border border-line bg-paper px-3 py-1.5 text-[13px]">
+              <span
+                className="h-2.5 w-2.5 rounded-full bg-sev-critical-fg"
+                aria-hidden
+              />
+              <strong className="font-mono">{overdue.length}</strong>
+              <span className="text-ink-soft">overdue</span>
+            </span>
+            <span className="inline-flex items-center gap-2 rounded-sm border border-line bg-paper px-3 py-1.5 text-[13px]">
+              <span
+                className="h-2.5 w-2.5 rounded-full bg-sev-high-fg"
+                aria-hidden
+              />
+              <strong className="font-mono">{dueSoon.length}</strong>
+              <span className="text-ink-soft">due within 7 days</span>
+            </span>
+            <span className="inline-flex items-center gap-2 rounded-sm border border-line bg-paper px-3 py-1.5 text-[13px]">
+              <span
+                className="h-2.5 w-2.5 rounded-full bg-primary"
+                aria-hidden
+              />
+              <strong className="font-mono">{open}</strong>
+              <span className="text-ink-soft">open total</span>
+            </span>
+          </div>
+
+          <h3 className="mb-2 text-[13px] font-bold uppercase tracking-wide text-ink-faint">
+            Most urgent open actions
+          </h3>
+          {urgent.length === 0 ? (
+            <p className="text-sm text-ink-soft">
+              Nothing open — every action is complete.
+            </p>
+          ) : (
+            <ol className="divide-y divide-line rounded-sm border border-line bg-paper">
+              {urgent.map((i) => (
+                <li
+                  key={i.step.id}
+                  className="flex items-center gap-3 px-3 py-2.5"
                 >
-                  {controlId}
-                </text>
-                {recent.map((p, col) => {
-                  const score = scoreOf.get(`${p.id}|${controlId}`) ?? 0;
-                  return (
-                    <rect
-                      key={p.id}
-                      x={labelW + col * cell + 2}
-                      y={colLabelH + row * cell + 2}
-                      width={cell - 4}
-                      height={cell - 4}
-                      rx={3}
-                      fill={fill(score)}
-                      stroke="#dfe1e2"
+                  <span
+                    className="h-2.5 w-2.5 shrink-0 rounded-full"
+                    style={{ backgroundColor: SEV_DOT[i.severity] }}
+                    aria-hidden
+                  />
+                  <div className="min-w-0 flex-1">
+                    <Link
+                      href={`/publications/${i.publicationId}`}
+                      className="block truncate text-[14px] font-semibold text-primary hover:underline"
+                      title={i.step.title}
                     >
-                      <title>
-                        {score > 0
-                          ? `${controlId} × ${p.title.slice(0, 60)} — confidence ${Math.round(score * 100)}%`
-                          : `${controlId} × ${p.title.slice(0, 60)} — no mapping`}
-                      </title>
-                    </rect>
-                  );
-                })}
-              </g>
-            ))}
-          </svg>
-        </div>
+                      {i.step.title}
+                    </Link>
+                    <p
+                      className="truncate text-[12px] text-ink-faint"
+                      title={i.pubTitle}
+                    >
+                      {i.step.phase} · {i.step.owner} · {i.pubTitle}
+                    </p>
+                  </div>
+                  <span
+                    className={`shrink-0 font-mono text-[12px] ${dueClass(i.step.dueDate)}`}
+                  >
+                    {dueLabel(daysUntil, i.step.dueDate)}
+                  </span>
+                </li>
+              ))}
+            </ol>
+          )}
+        </>
       )}
-      <div className="mt-3 flex items-center gap-2 text-[13px] text-ink-soft">
-        <span>No mapping</span>
-        <span
-          className="inline-block h-3 w-24 rounded-sm ring-1 ring-line"
-          style={{
-            background:
-              "linear-gradient(to right, #f8f9fa, #e7f0f9, #005ea2)",
-          }}
-          aria-hidden
-        />
-        <span>High confidence</span>
-      </div>
     </ChartCard>
   );
 }
@@ -385,11 +422,9 @@ function sourceShort(sourceId: string): string {
 export function DashboardCharts({
   publications,
   briefings,
-  mappings,
 }: {
   publications: Publication[];
   briefings: Briefing[];
-  mappings: ControlMapping[];
 }) {
   return (
     <div className="mb-8 space-y-5">
@@ -398,7 +433,7 @@ export function DashboardCharts({
         <JurisdictionSplit publications={publications} />
       </div>
       <ActivityTimeline publications={publications} briefings={briefings} />
-      <ControlHeatmap publications={publications} mappings={mappings} />
+      <ActionItemsOverview publications={publications} briefings={briefings} />
     </div>
   );
 }

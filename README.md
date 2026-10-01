@@ -67,8 +67,9 @@ npm run dev        # http://localhost:3000
 ```
 
 - **Dashboard** — severity breakdown, US-vs-Canada split, regulator activity
-  timeline, and a control-impact heatmap (controls × recent publications),
-  then the filterable feed.
+  timeline, and an action-items overview aggregating every briefing's action
+  plan (completion progress, per-phase counts, overdue/due-soon urgency, and
+  the most urgent open actions), then the filterable feed.
 - **Publication detail** — key facts as stat cards, what changed, a trackable
   action-plan stepper (check off steps; owners, due dates, evidence to file),
   mapped controls with confidence bars and keyword evidence.

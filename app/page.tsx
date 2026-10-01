@@ -97,7 +97,6 @@ export default async function DashboardPage({
       <DashboardCharts
         publications={store.publications}
         briefings={store.briefings}
-        mappings={store.mappings}
       />
 
       <Suspense>
