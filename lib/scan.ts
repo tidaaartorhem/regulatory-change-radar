@@ -4,8 +4,8 @@ import type {
   ControlMapping,
   Publication,
   StoreShape,
-  Summarizer,
 } from "@/lib/types";
+import type { Summarizer } from "@/lib/summarize/adapter";
 import { upsertPublications, type IngestInput } from "@/lib/ingest/store";
 import { scorePublication } from "@/lib/map/mapper";
 import { classifyWithLlmGate } from "@/lib/map/llmGate";

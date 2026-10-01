@@ -1,4 +1,5 @@
-import type { Control, ControlMapping, Summarizer } from "@/lib/types";
+import type { Control, ControlMapping } from "@/lib/types";
+import type { Summarizer } from "@/lib/summarize/adapter";
 
 /**
  * THE single LLM call site in the entire codebase ("the leash").

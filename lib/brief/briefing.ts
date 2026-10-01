@@ -4,8 +4,8 @@ import type {
   Publication,
   Severity,
   SuggestedAction,
-  Summary,
 } from "@/lib/types";
+import type { Summary } from "@/lib/summarize/adapter";
 
 interface SeveritySignal {
   pattern: RegExp;

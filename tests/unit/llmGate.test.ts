@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { classifyWithLlmGate } from "@/lib/map/llmGate";
-import type { Control, Summarizer, Summary } from "@/lib/types";
+import type { Control } from "@/lib/types";
+import type { Summarizer, Summary } from "@/lib/summarize/adapter";
 
 const CANDIDATES: Control[] = [
   { id: "NYDFS-500.16", framework: "NYDFS", title: "Event notification", description: "", sectors: ["banking"], keywords: [] },

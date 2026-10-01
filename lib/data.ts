@@ -36,9 +36,9 @@ export function getSources(): RegulatorSource[] {
   if (!sourcesCache) {
     sourcesCache = JSON.parse(
       readFileSync(join(process.cwd(), "data", "sources.json"), "utf8"),
-    );
+    ) as RegulatorSource[];
   }
-  return sourcesCache;
+  return sourcesCache as RegulatorSource[];
 }
 
 let controlsCache: Control[] | null = null;
@@ -46,9 +46,9 @@ export function getAllControls(): Control[] {
   if (!controlsCache) {
     controlsCache = JSON.parse(
       readFileSync(join(process.cwd(), "data", "controls.seed.json"), "utf8"),
-    );
+    ) as Control[];
   }
-  return controlsCache;
+  return controlsCache as Control[];
 }
 
 export function sourceById(id: string): RegulatorSource | undefined {

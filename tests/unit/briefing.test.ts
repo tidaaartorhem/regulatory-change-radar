@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { generateBriefing } from "@/lib/brief/briefing";
-import type { Publication, Summary } from "@/lib/types";
+import type { Publication } from "@/lib/types";
+import type { Summary } from "@/lib/summarize/adapter";
 
 function pub(overrides: Partial<Publication> = {}): Publication {
   return {
