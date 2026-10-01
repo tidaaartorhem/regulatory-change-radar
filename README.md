@@ -1,6 +1,6 @@
 # Regulatory Change Radar
 
-> **Live demo:** _(deploying — link lands here once the App Hosting rollout is verified)_
+> **Live demo:** https://regulatory-change-radar-1--truth-or-shots.us-east4.hosted.app
 
 ## The problem
 
