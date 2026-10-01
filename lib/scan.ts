@@ -76,7 +76,7 @@ export async function runScan(
     const briefing: Briefing = generateBriefing(
       pub,
       summary,
-      mappings.map((m) => m.controlId),
+      mappings,
       controls,
       llmUsed,
     );

@@ -65,6 +65,27 @@ export interface SuggestedAction {
   owner: string;
 }
 
+export type ActionPlanPhase = "Assess" | "Remediate" | "Verify";
+
+/**
+ * One concrete remediation step. Generated deterministically from the
+ * publication metadata and the mapped controls — every field is traceable
+ * to the source text or the control library, never invented.
+ */
+export interface ActionPlanStep {
+  id: string;
+  order: number;
+  phase: ActionPlanPhase;
+  title: string;
+  detail: string;
+  owner: string;
+  /** ISO date: severity-based suggested SLA from briefing generation. */
+  dueDate: string;
+  /** What to file as proof this step is done. */
+  evidence: string;
+  done: boolean;
+}
+
 export interface Briefing {
   publicationId: string;
   whatChanged: string[];
@@ -72,6 +93,8 @@ export interface Briefing {
   severity: Severity;
   severityReasons: string[];
   suggestedActions: SuggestedAction[];
+  /** Ordered, trackable remediation plan derived from the mapped controls. */
+  actionPlan: ActionPlanStep[];
   generatedAt: string;
   /** Transparency for auditors: did the LLM gate fire for this briefing? */
   llmUsed: boolean;

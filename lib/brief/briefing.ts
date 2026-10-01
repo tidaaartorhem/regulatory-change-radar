@@ -1,6 +1,9 @@
 import type {
+  ActionPlanPhase,
+  ActionPlanStep,
   Briefing,
   Control,
+  ControlMapping,
   Publication,
   Severity,
   SuggestedAction,
@@ -142,19 +145,158 @@ function suggestedActions(pub: Publication): SuggestedAction[] {
 export function generateBriefing(
   pub: Publication,
   summary: Summary,
-  mappedControlIds: string[],
-  _controls: Control[],
+  mappings: ControlMapping[],
+  controls: Control[],
   llmUsed: boolean,
 ): Briefing {
   const { severity, reasons } = classifySeverity(pub, summary);
+  const generatedAt = new Date().toISOString();
   return {
     publicationId: pub.id,
     whatChanged: summary.whatChanged,
-    affectedControls: mappedControlIds,
+    affectedControls: mappings.map((m) => m.controlId),
     severity,
     severityReasons: reasons,
     suggestedActions: suggestedActions(pub),
-    generatedAt: new Date().toISOString(),
+    actionPlan: buildActionPlan(pub, severity, mappings, controls, generatedAt),
+    generatedAt,
     llmUsed,
   };
+}
+
+// ---------------------------------------------------------------------------
+// Action plans: concrete, ordered remediation steps. Deterministic templates
+// only — titles, owners, and evidence cite the publication, the mapped
+// controls, or the fixed rules below. Nothing is invented about the reader's
+// institution.
+// ---------------------------------------------------------------------------
+
+const TRIAGE_SLA_DAYS: Record<Severity, number> = {
+  critical: 3,
+  high: 7,
+  medium: 14,
+  low: 30,
+};
+
+const REMEDIATION_SLA_DAYS: Record<Severity, number> = {
+  critical: 14,
+  high: 30,
+  medium: 60,
+  low: 90,
+};
+
+/** Framework → accountable role. Fixed rules, not per-institution facts. */
+const FRAMEWORK_OWNERS: Array<{ match: RegExp; owner: string }> = [
+  { match: /OSFI/i, owner: "Technology Risk Officer" },
+  { match: /NYDFS|23 NYCRR/i, owner: "CISO" },
+  { match: /NIST/i, owner: "Security Engineering Lead" },
+  { match: /PCI/i, owner: "Payments Compliance Owner" },
+  { match: /SOC 2|SOC2/i, owner: "GRC Lead" },
+  { match: /NAIC/i, owner: "Insurance Compliance Officer" },
+];
+
+function ownerForFramework(framework: string): string {
+  for (const rule of FRAMEWORK_OWNERS) {
+    if (rule.match.test(framework)) return rule.owner;
+  }
+  return "Control Owner";
+}
+
+function dueDate(fromIso: string, days: number): string {
+  const d = new Date(fromIso);
+  d.setUTCDate(d.getUTCDate() + days);
+  return d.toISOString().slice(0, 10);
+}
+
+/**
+ * Ordered plan: Assess (confirm scope) → Remediate (one step per mapped
+ * control, highest score first, capped at 5) → Verify (policy update +
+ * attestation). Deterministic: same inputs always yield the same plan.
+ */
+export function buildActionPlan(
+  pub: Publication,
+  severity: Severity,
+  mappings: ControlMapping[],
+  controls: Control[],
+  generatedAt: string,
+): ActionPlanStep[] {
+  const steps: ActionPlanStep[] = [];
+  const controlById = new Map(controls.map((c) => [c.id, c]));
+
+  let order = 0;
+  const push = (
+    phase: ActionPlanPhase,
+    title: string,
+    detail: string,
+    owner: string,
+    due: string,
+    evidence: string,
+  ) => {
+    order += 1;
+    steps.push({
+      id: `${pub.id}-step-${order}`,
+      order,
+      phase,
+      title,
+      detail,
+      owner,
+      dueDate: due,
+      evidence,
+      done: false,
+    });
+  };
+
+  // Phase 1 — Assess: confirm the publication actually applies.
+  push(
+    "Assess",
+    `Confirm applicability of "${truncate(pub.title, 90)}"`,
+    `Review the ${pub.sectors.join("/")} scope against your legal entities and confirm this ${pub.jurisdiction === "CA" ? "Canadian" : "US"} publication applies before spending remediation effort.`,
+    "Regulatory Affairs",
+    dueDate(generatedAt, TRIAGE_SLA_DAYS[severity]),
+    "Applicability decision recorded with rationale",
+  );
+
+  // Phase 2 — Remediate: one step per mapped control (top 5 by score).
+  const top = [...mappings].sort((a, b) => b.score - a.score).slice(0, 5);
+  for (const m of top) {
+    const control = controlById.get(m.controlId);
+    const controlLabel = control
+      ? `${control.id} — ${control.title}`
+      : m.controlId;
+    const keywords = m.matchedKeywords.slice(0, 4).join(", ");
+    push(
+      "Remediate",
+      `Close gaps against ${controlLabel}`,
+      control
+        ? `${control.description} Matched on: ${keywords || "framework terms"}.`
+        : `Matched on: ${keywords || "framework terms"}.`,
+      ownerForFramework(control?.framework ?? m.controlId),
+      dueDate(generatedAt, REMEDIATION_SLA_DAYS[severity]),
+      `Control self-assessment and gap log for ${m.controlId}`,
+    );
+  }
+
+  // Phase 3 — Verify: policy update and attestation close the loop.
+  push(
+    "Verify",
+    "Update policies and procedures",
+    `Reflect the new obligations in written policy, citing the source publication (${truncate(pub.title, 70)}).`,
+    "Policy Owner",
+    dueDate(generatedAt, REMEDIATION_SLA_DAYS[severity]),
+    "Revised policy document with approval record",
+  );
+  push(
+    "Verify",
+    "Record management attestation and file evidence",
+    "File the briefing, gap logs, and revised policies as the audit evidence package for this publication.",
+    "GRC Lead",
+    dueDate(generatedAt, REMEDIATION_SLA_DAYS[severity]),
+    "Signed attestation + evidence package in the GRC repository",
+  );
+
+  return steps;
+}
+
+function truncate(text: string, max: number): string {
+  return text.length > max ? `${text.slice(0, max - 1)}…` : text;
 }

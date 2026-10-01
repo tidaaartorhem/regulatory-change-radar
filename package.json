@@ -1,1 +1,35 @@
-{"dependencies":{"clsx":"^2.1.1","date-fns":"^4.4.0","lucide-react":"^1.49.0","next":"16.3.8","react":"19.2.8","react-dom":"19.2.8","rss-parser":"^3.13.0","zod":"^4.6.5"},"devDependencies":{"@tailwindcss/postcss":"^4","@types/node":"^24.19.0","@types/react":"^19","@types/react-dom":"^19","eslint":"^9","eslint-config-next":"16.3.8","tailwindcss":"^4","tsx":"^4.23.15","typescript":"^5","vitest":"^5.0.3"},"name":"regulatory-change-radar","private":true,"scripts":{"build":"npm run data:seed && next build","data:seed":"tsx scripts/seed.ts","dev":"next dev","lint":"eslint","start":"next start","test":"vitest run"},"version":"0.1.0"}
+{
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "date-fns": "^4.4.0",
+    "lucide-react": "^1.49.0",
+    "next": "16.3.8",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "rss-parser": "^3.13.0",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^24.19.0",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.3.8",
+    "tailwindcss": "^4",
+    "tsx": "^4.23.15",
+    "typescript": "^5",
+    "vitest": "^5.0.3"
+  },
+  "name": "regulatory-change-radar",
+  "private": true,
+  "scripts": {
+    "build": "npm run data:ingest && next build",
+    "dev": "next dev",
+    "lint": "eslint",
+    "start": "next start",
+    "test": "vitest run",
+    "data:ingest": "tsx scripts/ingest.ts"
+  },
+  "version": "0.1.0"
+}
