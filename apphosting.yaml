@@ -1,0 +1,7 @@
+# Firebase App Hosting configuration.
+# The backend auto-builds from the connected GitHub repo on every push to the
+# production branch. `npm run build` seeds the JSON data store at build time,
+# so the deployed demo works with zero configuration and zero API keys.
+runConfig:
+  cpu: 1
+  memoryMiB: 1024
