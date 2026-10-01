@@ -33,12 +33,12 @@ function Select({
   }
 
   return (
-    <label className="flex flex-col gap-1 text-xs text-slate-400">
+    <label className="flex flex-col gap-1 text-sm font-medium text-ink">
       {label}
       <select
         value={current}
         onChange={(e) => onChange(e.target.value)}
-        className="rounded-lg border border-[#1b2740] bg-[#0b1220] px-3 py-2 text-sm text-slate-200 outline-none focus:border-sky-500/60"
+        className="rounded border border-line-strong bg-paper px-3 py-2 text-[15px] text-ink"
       >
         <option value="">All</option>
         {options.map((o) => (
@@ -58,7 +58,7 @@ export function FeedFilters({ sources }: { sources: RegulatorSource[] }) {
   const hasFilters = [...searchParams.keys()].length > 0;
 
   return (
-    <div className="mb-6 flex flex-wrap items-end gap-3">
+    <div className="mb-6 flex flex-wrap items-end gap-3 rounded-md border border-line bg-paper p-4">
       <Select
         label="Severity"
         param="severity"
@@ -86,9 +86,9 @@ export function FeedFilters({ sources }: { sources: RegulatorSource[] }) {
       {hasFilters && (
         <button
           onClick={() => router.replace(pathname, { scroll: false })}
-          className="rounded-lg border border-[#1b2740] px-3 py-2 text-sm text-slate-300 transition hover:border-sky-500/50 hover:text-white"
+          className="rounded border border-line-strong bg-paper px-3 py-2 text-[15px] text-primary underline-offset-2 hover:underline"
         >
-          Clear
+          Clear filters
         </button>
       )}
     </div>

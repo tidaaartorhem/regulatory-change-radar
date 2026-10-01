@@ -8,11 +8,11 @@ export function PublicationCard({ view }: { view: PublicationView }) {
   return (
     <Link
       href={`/publications/${publication.id}`}
-      className="group block rounded-xl border border-[#1b2740] bg-[#0b1220]/80 p-5 transition hover:border-sky-500/50 hover:bg-[#0e1628]"
+      className="group block rounded-md border border-line bg-paper p-5 transition hover:border-primary"
     >
-      <div className="mb-2 flex items-center gap-2 text-xs text-slate-400">
-        <Landmark className="h-3.5 w-3.5 text-sky-400" />
-        <span className="font-medium text-slate-300">
+      <div className="mb-2 flex items-center gap-2 text-[13px] text-ink-soft">
+        <Landmark className="h-4 w-4 text-primary" aria-hidden />
+        <span className="font-semibold text-ink">
           {source?.shortName ?? publication.sourceId}
         </span>
         <span aria-hidden>·</span>
@@ -20,28 +20,28 @@ export function PublicationCard({ view }: { view: PublicationView }) {
         <span aria-hidden>·</span>
         <span>{new Date(publication.publishedAt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}</span>
         {publication.seeded && (
-          <span className="ml-auto rounded bg-indigo-500/15 px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide text-indigo-300">
+          <span className="ml-auto rounded bg-tag-bg px-1.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-tag-fg">
             Demo seed
           </span>
         )}
       </div>
-      <h3 className="mb-2 text-[15px] font-semibold leading-snug text-slate-100 group-hover:text-sky-200">
+      <h2 className="mb-2 text-lg font-semibold leading-snug text-ink group-hover:text-primary-dark group-hover:underline">
         {publication.title}
-      </h3>
+      </h2>
       <div className="flex flex-wrap items-center gap-2">
         <SeverityBadge severity={severity} />
         {publication.sectors.map((s) => (
           <span
             key={s}
-            className="rounded-full bg-white/5 px-2 py-0.5 text-[11px] capitalize text-slate-400"
+            className="rounded border border-line bg-canvas px-2 py-0.5 text-xs capitalize text-ink-soft"
           >
             {s}
           </span>
         ))}
-        <span className="text-[11px] text-slate-500">
+        <span className="text-xs text-ink-faint">
           {mappingCount} control{mappingCount === 1 ? "" : "s"} mapped
         </span>
-        <ArrowUpRight className="ml-auto h-4 w-4 text-slate-500 transition group-hover:text-sky-300" />
+        <ArrowUpRight className="ml-auto h-4 w-4 text-ink-faint transition group-hover:text-primary" aria-hidden />
       </div>
     </Link>
   );

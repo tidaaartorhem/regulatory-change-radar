@@ -30,61 +30,70 @@ export default async function ControlsPage({
   }
 
   const inputCls =
-    "rounded-lg border border-[#1b2740] bg-[#0b1220] px-3 py-2 text-sm text-slate-200 outline-none focus:border-sky-500/60";
+    "rounded border border-line-strong bg-paper px-3 py-2 text-[15px] text-ink";
 
   return (
     <div>
-      <h1 className="mb-1 text-2xl font-bold text-white">Control library</h1>
-      <p className="mb-6 text-sm text-slate-400">
+      <h1 className="mb-2 text-3xl font-bold text-ink">Control library</h1>
+      <p className="mb-6 max-w-3xl text-[15px] text-ink-soft">
         The closed taxonomy every publication is mapped against — {controls.length}{" "}
         controls across {frameworks.length} frameworks. The LLM gate may only
         ever emit IDs from this list.
       </p>
 
-      <form method="get" className="mb-6 flex flex-wrap gap-3">
-        <input
-          name="q"
-          defaultValue={params.q ?? ""}
-          placeholder="Search controls…"
-          className={cn(inputCls, "w-56")}
-        />
-        <select name="framework" defaultValue={params.framework ?? ""} className={inputCls}>
-          <option value="">All frameworks</option>
-          {frameworks.map((f) => (
-            <option key={f} value={f}>{f}</option>
-          ))}
-        </select>
-        <select name="sector" defaultValue={params.sector ?? ""} className={inputCls}>
-          <option value="">All sectors</option>
-          <option value="banking">Banking</option>
-          <option value="insurance">Insurance</option>
-          <option value="cyber">Cyber</option>
-        </select>
+      <form method="get" className="mb-6 flex flex-wrap items-end gap-3 rounded-md border border-line bg-paper p-4">
+        <label className="flex flex-col gap-1 text-sm font-medium text-ink">
+          Search
+          <input
+            name="q"
+            defaultValue={params.q ?? ""}
+            placeholder="Search controls…"
+            className={cn(inputCls, "w-56")}
+          />
+        </label>
+        <label className="flex flex-col gap-1 text-sm font-medium text-ink">
+          Framework
+          <select name="framework" defaultValue={params.framework ?? ""} className={inputCls}>
+            <option value="">All frameworks</option>
+            {frameworks.map((f) => (
+              <option key={f} value={f}>{f}</option>
+            ))}
+          </select>
+        </label>
+        <label className="flex flex-col gap-1 text-sm font-medium text-ink">
+          Sector
+          <select name="sector" defaultValue={params.sector ?? ""} className={inputCls}>
+            <option value="">All sectors</option>
+            <option value="banking">Banking</option>
+            <option value="insurance">Insurance</option>
+            <option value="cyber">Cyber</option>
+          </select>
+        </label>
         <button
           type="submit"
-          className="rounded-lg bg-sky-500 px-4 py-2 text-sm font-medium text-[#060a13] transition hover:bg-sky-400"
+          className="rounded bg-primary px-5 py-2 text-[15px] font-semibold text-white transition hover:bg-primary-dark"
         >
           Filter
         </button>
       </form>
 
-      <div className="grid gap-3 md:grid-cols-2">
+      <div className="grid gap-4 md:grid-cols-2">
         {filtered.map((c) => (
           <div
             key={c.id}
-            className="rounded-xl border border-[#1b2740] bg-[#0b1220]/80 p-4"
+            className="rounded-md border border-line bg-paper p-5"
           >
-            <p className="mb-1 font-mono text-xs text-sky-300">{c.id}</p>
-            <h3 className="mb-1 text-sm font-semibold text-slate-100">{c.title}</h3>
-            <p className="mb-2 text-xs text-slate-400">{c.description}</p>
+            <p className="mb-1 font-mono text-sm text-primary-dark">{c.id}</p>
+            <h2 className="mb-1 text-base font-semibold text-ink">{c.title}</h2>
+            <p className="mb-3 text-sm text-ink-soft">{c.description}</p>
             <div className="flex flex-wrap items-center gap-1.5">
-              <span className="rounded bg-white/5 px-1.5 py-0.5 text-[10px] text-slate-400">
+              <span className="rounded border border-line bg-canvas px-1.5 py-0.5 text-xs text-ink-soft">
                 {c.framework}
               </span>
               {c.sectors.map((s) => (
                 <span
                   key={s}
-                  className="rounded bg-white/5 px-1.5 py-0.5 text-[10px] capitalize text-slate-500"
+                  className="rounded border border-line bg-canvas px-1.5 py-0.5 text-xs capitalize text-ink-faint"
                 >
                   {s}
                 </span>
@@ -94,7 +103,7 @@ export default async function ControlsPage({
         ))}
       </div>
       {filtered.length === 0 && (
-        <p className="mt-6 text-sm text-slate-400">No controls match.</p>
+        <p className="mt-6 text-[15px] text-ink-soft">No controls match.</p>
       )}
     </div>
   );

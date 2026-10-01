@@ -28,10 +28,10 @@ function Stat({
   value: string | number;
 }) {
   return (
-    <div className="rounded-xl border border-[#1b2740] bg-[#0b1220]/80 p-4">
-      <div className="mb-1 flex items-center gap-2 text-sky-300">{icon}</div>
-      <p className="text-2xl font-bold text-white">{value}</p>
-      <p className="text-xs text-slate-400">{label}</p>
+    <div className="rounded-md border border-line bg-paper p-4">
+      <div className="mb-1 flex items-center gap-2 text-primary">{icon}</div>
+      <p className="text-3xl font-bold text-ink">{value}</p>
+      <p className="text-sm text-ink-soft">{label}</p>
     </div>
   );
 }
@@ -67,8 +67,8 @@ export default async function DashboardPage({
   return (
     <div>
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-white">Regulatory feed</h1>
-        <p className="mt-1 text-sm text-slate-400">
+        <h1 className="text-3xl font-bold text-ink">Regulatory feed</h1>
+        <p className="mt-2 max-w-3xl text-[15px] text-ink-soft">
           Every item below was ingested, deduplicated, summarized, and mapped
           to controls by the radar pipeline — no manual triage.
           {store.lastScanAt && (
@@ -86,11 +86,11 @@ export default async function DashboardPage({
         </p>
       </div>
 
-      <div className="mb-8 grid grid-cols-2 gap-3 md:grid-cols-4">
-        <Stat icon={<Activity className="h-4 w-4" />} label="Publications tracked" value={store.publications.length} />
-        <Stat icon={<AlertTriangle className="h-4 w-4" />} label="Critical severity" value={critical} />
-        <Stat icon={<Library className="h-4 w-4" />} label="Controls touched" value={mappedControls} />
-        <Stat icon={<Radio className="h-4 w-4" />} label="Regulators watched" value={sources.length} />
+      <div className="mb-8 grid grid-cols-2 gap-4 md:grid-cols-4">
+        <Stat icon={<Activity className="h-5 w-5" />} label="Publications tracked" value={store.publications.length} />
+        <Stat icon={<AlertTriangle className="h-5 w-5" />} label="Critical severity" value={critical} />
+        <Stat icon={<Library className="h-5 w-5" />} label="Controls touched" value={mappedControls} />
+        <Stat icon={<Radio className="h-5 w-5" />} label="Regulators watched" value={sources.length} />
       </div>
 
       <Suspense>
@@ -98,7 +98,7 @@ export default async function DashboardPage({
       </Suspense>
 
       {views.length === 0 ? (
-        <div className="rounded-xl border border-dashed border-[#1b2740] p-10 text-center text-sm text-slate-400">
+        <div className="rounded-md border border-dashed border-line-strong bg-paper p-10 text-center text-[15px] text-ink-soft">
           No publications match these filters. Try clearing them — or run a
           scan from the Watchlist page.
         </div>

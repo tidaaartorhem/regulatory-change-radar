@@ -23,17 +23,17 @@ export default async function WatchlistPage() {
 
   return (
     <div className="mx-auto max-w-3xl">
-      <h1 className="mb-1 text-2xl font-bold text-white">Watchlist</h1>
-      <p className="mb-6 text-sm text-slate-400">
+      <h1 className="mb-2 text-3xl font-bold text-ink">Watchlist</h1>
+      <p className="mb-6 max-w-3xl text-[15px] text-ink-soft">
         Choose which regulators the radar watches. Scans fetch RSS feeds first;
         HTML-only sources use the Firecrawl scrape adapter when enabled.
       </p>
 
-      <div className="mb-6 rounded-xl border border-[#1b2740] bg-[#0b1220]/80 p-5">
-        <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
+      <div className="mb-6 rounded-md border border-line bg-paper p-6">
+        <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
           <div>
-            <p className="text-sm font-semibold text-slate-100">Run a scan now</p>
-            <p className="text-xs text-slate-400">
+            <p className="text-base font-semibold text-ink">Run a scan now</p>
+            <p className="text-sm text-ink-soft">
               {store.publications.length} publications tracked
               {store.lastScanAt
                 ? ` · last scan ${new Date(store.lastScanAt).toLocaleString("en-US", { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" })}`
@@ -43,32 +43,32 @@ export default async function WatchlistPage() {
           <form action={handleScan}>
             <button
               type="submit"
-              className="inline-flex items-center gap-1.5 rounded-lg bg-sky-500 px-4 py-2 text-sm font-medium text-[#060a13] transition hover:bg-sky-400"
+              className="inline-flex items-center gap-1.5 rounded bg-primary px-5 py-2.5 text-[15px] font-semibold text-white transition hover:bg-primary-dark"
             >
-              <Play className="h-4 w-4" /> Run scan
+              <Play className="h-4 w-4" aria-hidden /> Run scan
             </button>
           </form>
         </div>
-        <div className="flex flex-wrap gap-2 text-[11px]">
+        <div className="flex flex-wrap gap-2 text-xs">
           <span
             className={cn(
-              "inline-flex items-center gap-1 rounded-full border px-2 py-0.5",
+              "inline-flex items-center gap-1 rounded border px-2 py-0.5 font-medium",
               live
-                ? "border-emerald-500/40 bg-emerald-500/10 text-emerald-300"
-                : "border-slate-500/40 bg-slate-500/10 text-slate-400",
+                ? "border-sev-low-fg/25 bg-sev-low-bg text-sev-low-fg"
+                : "border-line-strong bg-canvas text-ink-soft",
             )}
           >
-            <Globe className="h-3 w-3" />
+            <Globe className="h-3 w-3" aria-hidden />
             Firecrawl scrape adapter {live ? "enabled" : "disabled"}
           </span>
-          <span className="inline-flex items-center gap-1 rounded-full border border-sky-500/40 bg-sky-500/10 px-2 py-0.5 text-sky-300">
-            <Rss className="h-3 w-3" /> RSS first — no key needed
+          <span className="inline-flex items-center gap-1 rounded border border-primary/30 bg-primary-tint px-2 py-0.5 font-medium text-primary-dark">
+            <Rss className="h-3 w-3" aria-hidden /> RSS first — no key needed
           </span>
         </div>
         {!live && (
-          <p className="mt-3 text-xs text-slate-500">
+          <p className="mt-3 text-sm text-ink-soft">
             HTML-only sources are skipped in this mode. Set{" "}
-            <code className="rounded bg-white/10 px-1 font-mono">FIRECRAWL_ENABLED=true</code>{" "}
+            <code className="rounded border border-line bg-canvas px-1 font-mono text-[13px]">FIRECRAWL_ENABLED=true</code>{" "}
             to scrape them via the Firecrawl skill (auth stays with the stored
             credential — the app never handles a raw key).
           </p>
@@ -77,12 +77,12 @@ export default async function WatchlistPage() {
 
       <form action={saveWatchlistAction}>
         <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-300">
+          <h2 className="text-base font-bold text-navy">
             Regulators ({sources.length})
           </h2>
           <button
             type="submit"
-            className="rounded-lg border border-[#1b2740] px-3 py-1.5 text-sm text-slate-300 transition hover:border-sky-500/50 hover:text-white"
+            className="rounded border border-line-strong bg-paper px-4 py-2 text-[15px] text-primary underline-offset-2 hover:underline"
           >
             Save selection
           </button>
@@ -94,40 +94,40 @@ export default async function WatchlistPage() {
               <label
                 key={s.id}
                 className={cn(
-                  "flex cursor-pointer items-center gap-3 rounded-xl border p-3.5 transition",
+                  "flex cursor-pointer items-center gap-3 rounded-md border bg-paper p-4 transition",
                   enabled
-                    ? "border-sky-500/40 bg-[#0b1220]/80"
-                    : "border-[#1b2740] bg-[#0b1220]/40 opacity-60",
+                    ? "border-primary"
+                    : "border-line opacity-70",
                 )}
               >
                 <input
                   type="checkbox"
                   name={`src-${s.id}`}
                   defaultChecked={enabled}
-                  className="h-4 w-4 accent-sky-500"
+                  className="h-5 w-5 shrink-0 accent-primary"
                 />
                 <div className="min-w-0 flex-1">
-                  <p className="text-sm font-medium text-slate-100">
+                  <p className="text-[15px] font-semibold text-ink">
                     {s.shortName}
-                    <span className="ml-2 text-xs font-normal text-slate-400">{s.name}</span>
+                    <span className="ml-2 text-sm font-normal text-ink-soft">{s.name}</span>
                   </p>
-                  <p className="text-[11px] capitalize text-slate-500">
+                  <p className="text-[13px] capitalize text-ink-faint">
                     {s.jurisdiction === "US" ? "United States" : "Canada"} ·{" "}
                     {s.sectors.join(", ")}
                   </p>
                 </div>
                 <span
                   className={cn(
-                    "inline-flex shrink-0 items-center gap-1 rounded-full border px-2 py-0.5 text-[10px] font-medium",
+                    "inline-flex shrink-0 items-center gap-1 rounded border px-2 py-0.5 text-xs font-medium",
                     s.feedStatus === "rss-verified"
-                      ? "border-emerald-500/40 bg-emerald-500/10 text-emerald-300"
-                      : "border-amber-500/40 bg-amber-500/10 text-amber-300",
+                      ? "border-sev-low-fg/25 bg-sev-low-bg text-sev-low-fg"
+                      : "border-sev-medium-fg/30 bg-sev-medium-bg text-sev-medium-fg",
                   )}
                 >
                   {s.feedStatus === "rss-verified" ? (
-                    <><Rss className="h-3 w-3" /> RSS</>
+                    <><Rss className="h-3 w-3" aria-hidden /> RSS</>
                   ) : (
-                    <><Globe className="h-3 w-3" /> HTML + Firecrawl</>
+                    <><Globe className="h-3 w-3" aria-hidden /> HTML + Firecrawl</>
                   )}
                 </span>
               </label>
