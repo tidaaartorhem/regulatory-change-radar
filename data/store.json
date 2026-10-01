@@ -1,0 +1,779 @@
+{
+  "version": 1,
+  "publications": [
+    {
+      "id": "osfi-f00e3674dfb2",
+      "sourceId": "osfi",
+      "title": "OSFI releases revised Guideline B-13 on Technology and Cyber Risk Management",
+      "url": "https://www.osfi-bsif.gc.ca/en/guidance/guideline-b-13-technology-and-cyber-risk-management",
+      "publishedAt": "2024-01-15T00:00:00Z",
+      "rawText": "The Office of the Superintendent of Financial Institutions has released a revised Guideline B-13 on Technology and Cyber Risk Management. The revised guideline strengthens expectations for incident reporting, requiring federally regulated financial institutions to report technology and cyber incidents promptly. It introduces enhanced requirements for third-party technology risk management across the provider lifecycle. Institutions must demonstrate board oversight of technology risk and maintain tested resilience capabilities. The guideline is effective immediately and applies to all federally regulated banks and insurers.",
+      "contentHash": "f00e3674dfb2f2030213e1680059ff3d7a338d8c3a7b050afdb9f79becc0be86",
+      "jurisdiction": "CA",
+      "sectors": [
+        "banking",
+        "insurance",
+        "cyber"
+      ],
+      "seeded": true
+    },
+    {
+      "id": "nydfs-aeab814b7034",
+      "sourceId": "nydfs",
+      "title": "NYDFS adopts amendments to 23 NYCRR Part 500 cybersecurity regulation",
+      "url": "https://www.dfs.ny.gov/industry_guidance/cybersecurity",
+      "publishedAt": "2023-11-01T00:00:00Z",
+      "rawText": "The New York Department of Financial Services has adopted amendments to 23 NYCRR Part 500, its cybersecurity regulation. Covered entities must notify the superintendent within 72 hours of a cybersecurity event with a reasonable likelihood of material harm, and within 72 hours of making any ransomware payment. The amendments require CISOs to report material issues to the board and mandate privileged access management and endpoint detection. Compliance deadlines are phased based on company size, with the largest entities facing the earliest dates.",
+      "contentHash": "aeab814b703465626b5b7e77ca049853f6d28c5a51ab6e905ea24eb19c3c321e",
+      "jurisdiction": "US",
+      "sectors": [
+        "banking",
+        "insurance",
+        "cyber"
+      ],
+      "seeded": true
+    },
+    {
+      "id": "sec-7613e276d066",
+      "sourceId": "sec",
+      "title": "SEC adopts cybersecurity incident disclosure rules for public companies",
+      "url": "https://www.sec.gov/newsroom/press-releases/2023-139",
+      "publishedAt": "2023-07-26T00:00:00Z",
+      "rawText": "The Securities and Exchange Commission has adopted rules requiring public companies to disclose material cybersecurity incidents. Registrants must report material incidents on Form 8-K Item 1.05 within four business days of determining materiality. The rules also require annual disclosure of cybersecurity risk management, strategy, and governance, including board oversight of cyber risk. The disclosure requirements apply to all domestic registrants and are intended to give investors consistent, decision-useful information.",
+      "contentHash": "7613e276d066293cfafb18f0274005914754550cd90d64fd1345ae6e4e53f69e",
+      "jurisdiction": "US",
+      "sectors": [
+        "banking",
+        "cyber"
+      ],
+      "seeded": true
+    },
+    {
+      "id": "cisa-d820b2d293b2",
+      "sourceId": "cisa",
+      "title": "CISA adds ransomware-linked vulnerabilities to Known Exploited Vulnerabilities catalog",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
+      "publishedAt": "2024-03-12T00:00:00Z",
+      "rawText": "CISA has added multiple ransomware-associated vulnerabilities to its Known Exploited Vulnerabilities catalog. Federal agencies are required to remediate listed vulnerabilities by the binding operational directive deadlines. CISA strongly urges all organizations, including financial sector entities, to prioritize patching and review logging for indicators of compromise. The advisory notes active exploitation by ransomware affiliates targeting internet-facing systems.",
+      "contentHash": "d820b2d293b21876a69370b6e0cc9aa483a427136ed4c70ae8af832badd76243",
+      "jurisdiction": "US",
+      "sectors": [
+        "cyber",
+        "banking",
+        "insurance"
+      ],
+      "seeded": true
+    },
+    {
+      "id": "fsra-841fc0f09c83",
+      "sourceId": "fsra",
+      "title": "FSRA issues operational risk management guidance for Ontario insurers",
+      "url": "https://www.fsrao.ca/",
+      "publishedAt": "2024-05-20T00:00:00Z",
+      "rawText": "The Financial Services Regulatory Authority of Ontario has issued guidance on operational risk management for provincially regulated insurers. The guidance sets expectations for outsourcing oversight, business continuity planning, and incident reporting to the regulator. Insurers are expected to assess the guidance against current practices and address gaps within twelve months. FSRA will consider the guidance in its supervisory examinations going forward.",
+      "contentHash": "841fc0f09c83de9a60e8112e2b1d366f7129231e88775d8656a60030fc53e098",
+      "jurisdiction": "CA",
+      "sectors": [
+        "insurance",
+        "banking"
+      ],
+      "seeded": true
+    },
+    {
+      "id": "nist-78c3e34c1a37",
+      "sourceId": "nist",
+      "title": "NIST releases Cybersecurity Framework 2.0 with new Govern function",
+      "url": "https://www.nist.gov/cyberframework",
+      "publishedAt": "2024-02-26T00:00:00Z",
+      "rawText": "The National Institute of Standards and Technology has released version 2.0 of the Cybersecurity Framework. CSF 2.0 adds a sixth function, Govern, covering organizational risk management strategy and oversight. The framework expands its scope beyond critical infrastructure to all organizations and adds implementation examples and informative references. Organizations currently aligned to CSF 1.1 should map existing controls to the new function and category structure.",
+      "contentHash": "78c3e34c1a37328ef459631805f66d81b0f136501d0adb379a2711e6a26f925d",
+      "jurisdiction": "US",
+      "sectors": [
+        "cyber",
+        "banking",
+        "insurance"
+      ],
+      "seeded": true
+    },
+    {
+      "id": "naic-1d0908f0933e",
+      "sourceId": "naic",
+      "title": "NAIC model data security law adoption expands across states",
+      "url": "https://content.naic.org/cipr-topics/data-security.htm",
+      "publishedAt": "2024-06-10T00:00:00Z",
+      "rawText": "State insurance regulators continue advancing adoption of the NAIC Insurance Data Security Model Law. The model law requires licensees to maintain a written information security program and notify the state insurance commissioner within 72 hours of a cybersecurity event affecting 250 or more consumers. Insurers operating in multiple states must track each adopting state's effective date and variations. Third-party service provider oversight requirements apply to vendors with access to nonpublic information.",
+      "contentHash": "1d0908f0933e07f02fb322096d65a71c270d83a3ac388549e1e2474b512a5558",
+      "jurisdiction": "US",
+      "sectors": [
+        "insurance",
+        "cyber"
+      ],
+      "seeded": true
+    },
+    {
+      "id": "cccs-14e1231ad946",
+      "sourceId": "cccs",
+      "title": "Canadian Centre for Cyber Security issues advisory on state-sponsored threat activity",
+      "url": "https://www.cyber.gc.ca/en/alerts-advisories",
+      "publishedAt": "2024-04-08T00:00:00Z",
+      "rawText": "The Canadian Centre for Cyber Security has issued an advisory on evolving state-sponsored threat activity targeting Canadian organizations. The advisory recommends enhanced monitoring, multi-factor authentication on all remote access, and review of incident response plans. Financial sector entities are urged to share indicators of compromise with the Centre. Organizations should validate backup and recovery procedures against ransomware scenarios.",
+      "contentHash": "14e1231ad946cd0b60d6b60225b6af358602e0a846ced349c64e62584a78975b",
+      "jurisdiction": "CA",
+      "sectors": [
+        "cyber",
+        "banking",
+        "insurance"
+      ],
+      "seeded": true
+    },
+    {
+      "id": "fcac-da763b657da4",
+      "sourceId": "fcac",
+      "title": "FCAC updates complaint-handling expectations for federal banks",
+      "url": "https://www.canada.ca/en/financial-consumer-agency.html",
+      "publishedAt": "2024-09-16T00:00:00Z",
+      "rawText": "The Financial Consumer Agency of Canada has published updated expectations for complaint handling at federally regulated banks. Banks must ensure complaint procedures are accessible, acknowledge complaints promptly, and provide clear escalation paths to senior management. The Agency will assess compliance through supervisory reviews and may take enforcement action for persistent deficiencies. Banks should update internal policies and staff training within six months.",
+      "contentHash": "da763b657da4607a9b434c3d064e811de2e62c4ac1df7c53a1dff114759a6265",
+      "jurisdiction": "CA",
+      "sectors": [
+        "banking",
+        "insurance"
+      ],
+      "seeded": true
+    }
+  ],
+  "mappings": [
+    {
+      "publicationId": "osfi-f00e3674dfb2",
+      "controlId": "NIST-CSF-GV.OC-01",
+      "score": 0.28,
+      "matchedKeywords": [
+        "risk management"
+      ],
+      "method": "taxonomy"
+    },
+    {
+      "publicationId": "osfi-f00e3674dfb2",
+      "controlId": "OSFI-B13-1",
+      "score": 0.22,
+      "matchedKeywords": [
+        "board oversight",
+        "OSFI"
+      ],
+      "method": "taxonomy"
+    },
+    {
+      "publicationId": "osfi-f00e3674dfb2",
+      "controlId": "OSFI-B13-5",
+      "score": 0.13,
+      "matchedKeywords": [
+        "incident reporting",
+        "cyber incident"
+      ],
+      "method": "taxonomy"
+    },
+    {
+      "publicationId": "nydfs-aeab814b7034",
+      "controlId": "OSFI-B13-2",
+      "score": 0.28,
+      "matchedKeywords": [
+        "cybersecurity"
+      ],
+      "method": "taxonomy"
+    },
+    {
+      "publicationId": "nydfs-aeab814b7034",
+      "controlId": "NYDFS-500.16",
+      "score": 0.2,
+      "matchedKeywords": [
+        "cybersecurity event",
+        "ransomware",
+        "superintendent"
+      ],
+      "method": "taxonomy"
+    },
+    {
+      "publicationId": "sec-7613e276d066",
+      "controlId": "OSFI-B13-2",
+      "score": 0.28,
+      "matchedKeywords": [
+        "cybersecurity"
+      ],
+      "method": "taxonomy"
+    },
+    {
+      "publicationId": "cisa-d820b2d293b2",
+      "controlId": "PCI-DSS-5",
+      "score": 0.42,
+      "matchedKeywords": [
+        "ransomware"
+      ],
+      "method": "taxonomy"
+    },
+    {
+      "publicationId": "cisa-d820b2d293b2",
+      "controlId": "NYDFS-500.16",
+      "score": 0.33,
+      "matchedKeywords": [
+        "ransomware"
+      ],
+      "method": "taxonomy"
+    },
+    {
+      "publicationId": "fsra-841fc0f09c83",
+      "controlId": "NIST-CSF-GV.OC-01",
+      "score": 0.22,
+      "matchedKeywords": [
+        "risk management"
+      ],
+      "method": "taxonomy"
+    },
+    {
+      "publicationId": "nist-78c3e34c1a37",
+      "controlId": "OSFI-B13-2",
+      "score": 0.22,
+      "matchedKeywords": [
+        "cybersecurity"
+      ],
+      "method": "taxonomy"
+    },
+    {
+      "publicationId": "naic-1d0908f0933e",
+      "controlId": "NAIC-668-1",
+      "score": 0.5,
+      "matchedKeywords": [
+        "information security program",
+        "licensee",
+        "data security"
+      ],
+      "method": "taxonomy"
+    },
+    {
+      "publicationId": "naic-1d0908f0933e",
+      "controlId": "NAIC-668-3",
+      "score": 0.2,
+      "matchedKeywords": [
+        "third-party",
+        "service provider",
+        "vendor"
+      ],
+      "method": "taxonomy"
+    },
+    {
+      "publicationId": "naic-1d0908f0933e",
+      "controlId": "OSFI-B13-3",
+      "score": 0.17,
+      "matchedKeywords": [
+        "third-party",
+        "vendor",
+        "service provider"
+      ],
+      "method": "taxonomy"
+    },
+    {
+      "publicationId": "naic-1d0908f0933e",
+      "controlId": "NYDFS-500.2",
+      "score": 0.17,
+      "matchedKeywords": [
+        "information security program",
+        "nonpublic information"
+      ],
+      "method": "taxonomy"
+    },
+    {
+      "publicationId": "naic-1d0908f0933e",
+      "controlId": "NAIC-668-2",
+      "score": 0.13,
+      "matchedKeywords": [
+        "commissioner",
+        "cybersecurity event"
+      ],
+      "method": "taxonomy"
+    },
+    {
+      "publicationId": "cccs-14e1231ad946",
+      "controlId": "OSFI-B13-2",
+      "score": 0.44,
+      "matchedKeywords": [
+        "cyber security",
+        "threat"
+      ],
+      "method": "taxonomy"
+    },
+    {
+      "publicationId": "cccs-14e1231ad946",
+      "controlId": "PCI-DSS-8",
+      "score": 0.17,
+      "matchedKeywords": [
+        "authentication",
+        "multi-factor",
+        "access"
+      ],
+      "method": "taxonomy"
+    },
+    {
+      "publicationId": "cccs-14e1231ad946",
+      "controlId": "SOC2-CC7.3",
+      "score": 0.17,
+      "matchedKeywords": [
+        "incident response",
+        "response plan"
+      ],
+      "method": "taxonomy"
+    },
+    {
+      "publicationId": "cccs-14e1231ad946",
+      "controlId": "SOC2-A1.2",
+      "score": 0.17,
+      "matchedKeywords": [
+        "backup",
+        "recovery"
+      ],
+      "method": "taxonomy"
+    }
+  ],
+  "briefings": [
+    {
+      "publicationId": "osfi-f00e3674dfb2",
+      "whatChanged": [
+        "It introduces enhanced requirements for third-party technology risk management across the provider lifecycle.",
+        "The Office of the Superintendent of Financial Institutions has released a revised Guideline B-13 on Technology and Cyber Risk Management.",
+        "The revised guideline strengthens expectations for incident reporting, requiring federally regulated financial institutions to report technology and cyber incidents promptly."
+      ],
+      "affectedControls": [
+        "NIST-CSF-GV.OC-01",
+        "OSFI-B13-1",
+        "OSFI-B13-5"
+      ],
+      "severity": "critical",
+      "severityReasons": [
+        "Uses obligating language (must/shall/required)",
+        "Names an effective or compliance date",
+        "Issued by a primary prudential/market regulator"
+      ],
+      "suggestedActions": [
+        {
+          "action": "Run a gap assessment of the mapped controls against current policies",
+          "owner": "Chief Compliance Officer"
+        },
+        {
+          "action": "Brief the board risk committee if obligations changed",
+          "owner": "Chief Risk Officer"
+        },
+        {
+          "action": "Assess disclosure and filing impact with the appointed actuary",
+          "owner": "Compliance Officer"
+        },
+        {
+          "action": "Update third-party due-diligence questionnaires if vendor rules changed",
+          "owner": "Vendor Risk Manager"
+        },
+        {
+          "action": "Validate detective coverage for the mapped controls in the SIEM",
+          "owner": "SOC Lead"
+        },
+        {
+          "action": "Confirm incident playbooks reflect any new notification timelines",
+          "owner": "CISO"
+        },
+        {
+          "action": "Confirm applicability across US and Canadian legal entities",
+          "owner": "Regulatory Affairs"
+        },
+        {
+          "action": "Add to the next GRC committee agenda with the mapped controls",
+          "owner": "GRC Lead"
+        }
+      ],
+      "generatedAt": "2026-10-01T12:54:07.078Z",
+      "llmUsed": false
+    },
+    {
+      "publicationId": "nydfs-aeab814b7034",
+      "whatChanged": [
+        "The New York Department of Financial Services has adopted amendments to 23 NYCRR Part 500, its cybersecurity regulation.",
+        "The amendments require CISOs to report material issues to the board and mandate privileged access management and endpoint detection.",
+        "Covered entities must notify the superintendent within 72 hours of a cybersecurity event with a reasonable likelihood of material harm, and within 72 hours of making any ransomware payment."
+      ],
+      "affectedControls": [
+        "OSFI-B13-2",
+        "NYDFS-500.16"
+      ],
+      "severity": "critical",
+      "severityReasons": [
+        "Contains a mandatory short-fuse obligation (e.g. 72-hour rule)",
+        "Amends or introduces binding requirements",
+        "Uses obligating language (must/shall/required)",
+        "Names an effective or compliance date",
+        "Issued by a primary prudential/market regulator"
+      ],
+      "suggestedActions": [
+        {
+          "action": "Run a gap assessment of the mapped controls against current policies",
+          "owner": "Chief Compliance Officer"
+        },
+        {
+          "action": "Brief the board risk committee if obligations changed",
+          "owner": "Chief Risk Officer"
+        },
+        {
+          "action": "Assess disclosure and filing impact with the appointed actuary",
+          "owner": "Compliance Officer"
+        },
+        {
+          "action": "Update third-party due-diligence questionnaires if vendor rules changed",
+          "owner": "Vendor Risk Manager"
+        },
+        {
+          "action": "Validate detective coverage for the mapped controls in the SIEM",
+          "owner": "SOC Lead"
+        },
+        {
+          "action": "Confirm incident playbooks reflect any new notification timelines",
+          "owner": "CISO"
+        },
+        {
+          "action": "Confirm applicability across US and Canadian legal entities",
+          "owner": "Regulatory Affairs"
+        },
+        {
+          "action": "Add to the next GRC committee agenda with the mapped controls",
+          "owner": "GRC Lead"
+        }
+      ],
+      "generatedAt": "2026-10-01T12:54:07.079Z",
+      "llmUsed": false
+    },
+    {
+      "publicationId": "sec-7613e276d066",
+      "whatChanged": [
+        "Registrants must report material incidents on Form 8-K Item 1.05 within four business days of determining materiality.",
+        "The rules also require annual disclosure of cybersecurity risk management, strategy, and governance, including board oversight of cyber risk.",
+        "The disclosure requirements apply to all domestic registrants and are intended to give investors consistent, decision-useful information."
+      ],
+      "affectedControls": [
+        "OSFI-B13-2"
+      ],
+      "severity": "high",
+      "severityReasons": [
+        "Uses obligating language (must/shall/required)",
+        "Issued by a primary prudential/market regulator"
+      ],
+      "suggestedActions": [
+        {
+          "action": "Run a gap assessment of the mapped controls against current policies",
+          "owner": "Chief Compliance Officer"
+        },
+        {
+          "action": "Brief the board risk committee if obligations changed",
+          "owner": "Chief Risk Officer"
+        },
+        {
+          "action": "Validate detective coverage for the mapped controls in the SIEM",
+          "owner": "SOC Lead"
+        },
+        {
+          "action": "Confirm incident playbooks reflect any new notification timelines",
+          "owner": "CISO"
+        },
+        {
+          "action": "Confirm applicability across US and Canadian legal entities",
+          "owner": "Regulatory Affairs"
+        },
+        {
+          "action": "Add to the next GRC committee agenda with the mapped controls",
+          "owner": "GRC Lead"
+        }
+      ],
+      "generatedAt": "2026-10-01T12:54:07.080Z",
+      "llmUsed": false
+    },
+    {
+      "publicationId": "cisa-d820b2d293b2",
+      "whatChanged": [
+        "Federal agencies are required to remediate listed vulnerabilities by the binding operational directive deadlines.",
+        "CISA has added multiple ransomware-associated vulnerabilities to its Known Exploited Vulnerabilities catalog.",
+        "CISA strongly urges all organizations, including financial sector entities, to prioritize patching and review logging for indicators of compromise."
+      ],
+      "affectedControls": [
+        "PCI-DSS-5",
+        "NYDFS-500.16"
+      ],
+      "severity": "high",
+      "severityReasons": [
+        "Uses obligating language (must/shall/required)",
+        "Names an effective or compliance date"
+      ],
+      "suggestedActions": [
+        {
+          "action": "Validate detective coverage for the mapped controls in the SIEM",
+          "owner": "SOC Lead"
+        },
+        {
+          "action": "Confirm incident playbooks reflect any new notification timelines",
+          "owner": "CISO"
+        },
+        {
+          "action": "Run a gap assessment of the mapped controls against current policies",
+          "owner": "Chief Compliance Officer"
+        },
+        {
+          "action": "Brief the board risk committee if obligations changed",
+          "owner": "Chief Risk Officer"
+        },
+        {
+          "action": "Assess disclosure and filing impact with the appointed actuary",
+          "owner": "Compliance Officer"
+        },
+        {
+          "action": "Update third-party due-diligence questionnaires if vendor rules changed",
+          "owner": "Vendor Risk Manager"
+        },
+        {
+          "action": "Confirm applicability across US and Canadian legal entities",
+          "owner": "Regulatory Affairs"
+        },
+        {
+          "action": "Add to the next GRC committee agenda with the mapped controls",
+          "owner": "GRC Lead"
+        }
+      ],
+      "generatedAt": "2026-10-01T12:54:07.082Z",
+      "llmUsed": false
+    },
+    {
+      "publicationId": "fsra-841fc0f09c83",
+      "whatChanged": [
+        "The Financial Services Regulatory Authority of Ontario has issued guidance on operational risk management for provincially regulated insurers.",
+        "The guidance sets expectations for outsourcing oversight, business continuity planning, and incident reporting to the regulator.",
+        "Insurers are expected to assess the guidance against current practices and address gaps within twelve months."
+      ],
+      "affectedControls": [
+        "NIST-CSF-GV.OC-01"
+      ],
+      "severity": "medium",
+      "severityReasons": [],
+      "suggestedActions": [
+        {
+          "action": "Assess disclosure and filing impact with the appointed actuary",
+          "owner": "Compliance Officer"
+        },
+        {
+          "action": "Update third-party due-diligence questionnaires if vendor rules changed",
+          "owner": "Vendor Risk Manager"
+        },
+        {
+          "action": "Run a gap assessment of the mapped controls against current policies",
+          "owner": "Chief Compliance Officer"
+        },
+        {
+          "action": "Brief the board risk committee if obligations changed",
+          "owner": "Chief Risk Officer"
+        },
+        {
+          "action": "Confirm applicability across US and Canadian legal entities",
+          "owner": "Regulatory Affairs"
+        },
+        {
+          "action": "Add to the next GRC committee agenda with the mapped controls",
+          "owner": "GRC Lead"
+        }
+      ],
+      "generatedAt": "2026-10-01T12:54:07.082Z",
+      "llmUsed": false
+    },
+    {
+      "publicationId": "nist-78c3e34c1a37",
+      "whatChanged": [
+        "Organizations currently aligned to CSF 1.1 should map existing controls to the new function and category structure.",
+        "The National Institute of Standards and Technology has released version 2.0 of the Cybersecurity Framework.",
+        "CSF 2.0 adds a sixth function, Govern, covering organizational risk management strategy and oversight."
+      ],
+      "affectedControls": [
+        "OSFI-B13-2"
+      ],
+      "severity": "medium",
+      "severityReasons": [],
+      "suggestedActions": [
+        {
+          "action": "Validate detective coverage for the mapped controls in the SIEM",
+          "owner": "SOC Lead"
+        },
+        {
+          "action": "Confirm incident playbooks reflect any new notification timelines",
+          "owner": "CISO"
+        },
+        {
+          "action": "Run a gap assessment of the mapped controls against current policies",
+          "owner": "Chief Compliance Officer"
+        },
+        {
+          "action": "Brief the board risk committee if obligations changed",
+          "owner": "Chief Risk Officer"
+        },
+        {
+          "action": "Assess disclosure and filing impact with the appointed actuary",
+          "owner": "Compliance Officer"
+        },
+        {
+          "action": "Update third-party due-diligence questionnaires if vendor rules changed",
+          "owner": "Vendor Risk Manager"
+        },
+        {
+          "action": "Confirm applicability across US and Canadian legal entities",
+          "owner": "Regulatory Affairs"
+        },
+        {
+          "action": "Add to the next GRC committee agenda with the mapped controls",
+          "owner": "GRC Lead"
+        }
+      ],
+      "generatedAt": "2026-10-01T12:54:07.083Z",
+      "llmUsed": false
+    },
+    {
+      "publicationId": "naic-1d0908f0933e",
+      "whatChanged": [
+        "Insurers operating in multiple states must track each adopting state's effective date and variations.",
+        "The model law requires licensees to maintain a written information security program and notify the state insurance commissioner within 72 hours of a cybersecurity event affecting 250 or more consumers.",
+        "Third-party service provider oversight requirements apply to vendors with access to nonpublic information."
+      ],
+      "affectedControls": [
+        "NAIC-668-1",
+        "NAIC-668-3",
+        "OSFI-B13-3",
+        "NYDFS-500.2",
+        "NAIC-668-2"
+      ],
+      "severity": "critical",
+      "severityReasons": [
+        "Contains a mandatory short-fuse obligation (e.g. 72-hour rule)",
+        "Uses obligating language (must/shall/required)",
+        "Names an effective or compliance date"
+      ],
+      "suggestedActions": [
+        {
+          "action": "Assess disclosure and filing impact with the appointed actuary",
+          "owner": "Compliance Officer"
+        },
+        {
+          "action": "Update third-party due-diligence questionnaires if vendor rules changed",
+          "owner": "Vendor Risk Manager"
+        },
+        {
+          "action": "Validate detective coverage for the mapped controls in the SIEM",
+          "owner": "SOC Lead"
+        },
+        {
+          "action": "Confirm incident playbooks reflect any new notification timelines",
+          "owner": "CISO"
+        },
+        {
+          "action": "Confirm applicability across US and Canadian legal entities",
+          "owner": "Regulatory Affairs"
+        },
+        {
+          "action": "Add to the next GRC committee agenda with the mapped controls",
+          "owner": "GRC Lead"
+        }
+      ],
+      "generatedAt": "2026-10-01T12:54:07.083Z",
+      "llmUsed": false
+    },
+    {
+      "publicationId": "cccs-14e1231ad946",
+      "whatChanged": [
+        "The Canadian Centre for Cyber Security has issued an advisory on evolving state-sponsored threat activity targeting Canadian organizations.",
+        "The advisory recommends enhanced monitoring, multi-factor authentication on all remote access, and review of incident response plans.",
+        "Financial sector entities are urged to share indicators of compromise with the Centre."
+      ],
+      "affectedControls": [
+        "OSFI-B13-2",
+        "PCI-DSS-8",
+        "SOC2-CC7.3",
+        "SOC2-A1.2"
+      ],
+      "severity": "medium",
+      "severityReasons": [],
+      "suggestedActions": [
+        {
+          "action": "Validate detective coverage for the mapped controls in the SIEM",
+          "owner": "SOC Lead"
+        },
+        {
+          "action": "Confirm incident playbooks reflect any new notification timelines",
+          "owner": "CISO"
+        },
+        {
+          "action": "Run a gap assessment of the mapped controls against current policies",
+          "owner": "Chief Compliance Officer"
+        },
+        {
+          "action": "Brief the board risk committee if obligations changed",
+          "owner": "Chief Risk Officer"
+        },
+        {
+          "action": "Assess disclosure and filing impact with the appointed actuary",
+          "owner": "Compliance Officer"
+        },
+        {
+          "action": "Update third-party due-diligence questionnaires if vendor rules changed",
+          "owner": "Vendor Risk Manager"
+        },
+        {
+          "action": "Confirm applicability across US and Canadian legal entities",
+          "owner": "Regulatory Affairs"
+        },
+        {
+          "action": "Add to the next GRC committee agenda with the mapped controls",
+          "owner": "GRC Lead"
+        }
+      ],
+      "generatedAt": "2026-10-01T12:54:07.083Z",
+      "llmUsed": false
+    },
+    {
+      "publicationId": "fcac-da763b657da4",
+      "whatChanged": [
+        "The Financial Consumer Agency of Canada has published updated expectations for complaint handling at federally regulated banks.",
+        "Banks must ensure complaint procedures are accessible, acknowledge complaints promptly, and provide clear escalation paths to senior management.",
+        "Banks should update internal policies and staff training within six months."
+      ],
+      "affectedControls": [],
+      "severity": "critical",
+      "severityReasons": [
+        "Contains a mandatory short-fuse obligation (e.g. 72-hour rule)",
+        "Uses obligating language (must/shall/required)"
+      ],
+      "suggestedActions": [
+        {
+          "action": "Run a gap assessment of the mapped controls against current policies",
+          "owner": "Chief Compliance Officer"
+        },
+        {
+          "action": "Brief the board risk committee if obligations changed",
+          "owner": "Chief Risk Officer"
+        },
+        {
+          "action": "Assess disclosure and filing impact with the appointed actuary",
+          "owner": "Compliance Officer"
+        },
+        {
+          "action": "Update third-party due-diligence questionnaires if vendor rules changed",
+          "owner": "Vendor Risk Manager"
+        },
+        {
+          "action": "Confirm applicability across US and Canadian legal entities",
+          "owner": "Regulatory Affairs"
+        },
+        {
+          "action": "Add to the next GRC committee agenda with the mapped controls",
+          "owner": "GRC Lead"
+        }
+      ],
+      "generatedAt": "2026-10-01T12:54:07.083Z",
+      "llmUsed": false
+    }
+  ],
+  "lastScanAt": "2026-10-01T12:54:07.083Z"
+}
