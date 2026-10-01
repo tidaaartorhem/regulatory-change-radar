@@ -72,3 +72,24 @@ export async function saveWatchlistAction(formData: FormData): Promise<void> {
   saveWatchlist({ sources: enabled, sectors: ["banking", "insurance", "cyber"] });
   revalidatePath("/watchlist");
 }
+
+/**
+ * Toggle an action-plan step's completion. Steps are trackable: checked
+ * state persists in the store alongside the briefing.
+ */
+export async function toggleActionStepAction(
+  publicationId: string,
+  stepId: string,
+): Promise<{ ok: boolean; done: number; total: number }> {
+  const store = getStore();
+  const briefing = store.briefings.find(
+    (b) => b.publicationId === publicationId,
+  );
+  const step = briefing?.actionPlan.find((s) => s.id === stepId);
+  if (!briefing || !step) return { ok: false, done: 0, total: 0 };
+  step.done = !step.done;
+  persistStore();
+  const done = briefing.actionPlan.filter((s) => s.done).length;
+  revalidatePath(`/publications/${publicationId}`);
+  return { ok: true, done, total: briefing.actionPlan.length };
+}

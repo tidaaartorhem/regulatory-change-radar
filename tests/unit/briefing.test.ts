@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { generateBriefing } from "@/lib/brief/briefing";
-import type { Publication } from "@/lib/types";
+import type { ControlMapping, Publication } from "@/lib/types";
 import type { Summary } from "@/lib/summarize/adapter";
 
 function pub(overrides: Partial<Publication> = {}): Publication {
@@ -24,9 +24,19 @@ const summary: Summary = {
   documentKind: "rule",
 };
 
+function mapping(controlId: string): ControlMapping {
+  return {
+    publicationId: "nydfs-abc123",
+    controlId,
+    score: 0.9,
+    matchedKeywords: ["notify", "72 hours"],
+    method: "taxonomy",
+  };
+}
+
 describe("generateBriefing", () => {
   it("rates 72-hour mandatory obligations as critical", () => {
-    const b = generateBriefing(pub(), summary, ["NYDFS-500.16"], [], false);
+    const b = generateBriefing(pub(), summary, [mapping("NYDFS-500.16")], [], false);
     expect(b.severity).toBe("critical");
     expect(b.severityReasons.length).toBeGreaterThan(0);
   });
@@ -47,7 +57,7 @@ describe("generateBriefing", () => {
   });
 
   it("produces owned, deduplicated actions", () => {
-    const b = generateBriefing(pub(), summary, ["NYDFS-500.16"], [], false);
+    const b = generateBriefing(pub(), summary, [mapping("NYDFS-500.16")], [], false);
     expect(b.suggestedActions.length).toBeGreaterThan(0);
     for (const a of b.suggestedActions) {
       expect(a.action.length).toBeGreaterThan(0);
@@ -63,7 +73,7 @@ describe("generateBriefing", () => {
   });
 
   it("carries the extracted change bullets and mapped controls", () => {
-    const b = generateBriefing(pub(), summary, ["NYDFS-500.16", "NIST-CSF-RS.CO-02"], [], false);
+    const b = generateBriefing(pub(), summary, [mapping("NYDFS-500.16"), mapping("NIST-CSF-RS.CO-02")], [], false);
     expect(b.whatChanged).toEqual(summary.whatChanged);
     expect(b.affectedControls).toEqual(["NYDFS-500.16", "NIST-CSF-RS.CO-02"]);
     expect(b.publicationId).toBe("nydfs-abc123");

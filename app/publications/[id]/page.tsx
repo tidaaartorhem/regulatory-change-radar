@@ -7,10 +7,30 @@ import {
   ListChecks,
   AlertTriangle,
   Cpu,
+  ClipboardList,
 } from "lucide-react";
 import { getPublicationDetail } from "@/lib/data";
 import { SeverityBadge } from "@/components/severity-badge";
+import { ActionPlan } from "@/components/action-plan";
 import { cn } from "@/lib/cn";
+
+function FactCard({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <div className="rounded-md border border-line bg-paper px-3 py-2.5">
+      <p className="mb-1 text-[11px] font-bold uppercase tracking-wide text-ink-faint">
+        {label}
+      </p>
+      <div className="text-sm font-semibold text-ink">{children}</div>
+    </div>
+  );
+}
+
+const dateFmt = (iso: string) =>
+  new Date(iso).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
 
 export default async function PublicationPage({
   params,
@@ -36,39 +56,29 @@ export default async function PublicationPage({
         <span aria-hidden>·</span>
         <span>{publication.jurisdiction === "US" ? "United States" : "Canada"}</span>
         <span aria-hidden>·</span>
-        <span>
-          {new Date(publication.publishedAt).toLocaleDateString("en-US", {
-            month: "long",
-            day: "numeric",
-            year: "numeric",
-          })}
-        </span>
-        <span aria-hidden>·</span>
-        <span>
-          Retrieved{" "}
-          {new Date(publication.ingestedAt).toLocaleDateString("en-US", {
-            month: "long",
-            day: "numeric",
-            year: "numeric",
-          })}
-        </span>
+        <span>Retrieved {dateFmt(publication.ingestedAt)}</span>
       </p>
 
-      <h1 className="mb-4 text-3xl font-bold leading-tight text-ink">
+      <h1 className="mb-5 text-3xl font-bold leading-tight text-ink">
         {publication.title}
       </h1>
 
-      {briefing && (
-        <div className="mb-6 flex flex-wrap items-center gap-3">
-          <SeverityBadge severity={briefing.severity} />
-          <span className="inline-flex items-center gap-1.5 text-sm text-ink-soft">
+      {/* Key facts as stat cards */}
+      <div className="mb-6 grid grid-cols-2 gap-3 md:grid-cols-3">
+        <FactCard label="Severity">
+          {briefing ? <SeverityBadge severity={briefing.severity} /> : "—"}
+        </FactCard>
+        <FactCard label="Controls touched">{mappings.length}</FactCard>
+        <FactCard label="Published">{dateFmt(publication.publishedAt)}</FactCard>
+        <FactCard label="Source regulator">{source?.shortName ?? "—"}</FactCard>
+        <FactCard label="Retrieved">{dateFmt(publication.ingestedAt)}</FactCard>
+        <FactCard label="Pipeline">
+          <span className="inline-flex items-center gap-1.5 text-[13px] font-medium text-ink-soft">
             <Cpu className="h-4 w-4" aria-hidden />
-            {briefing.llmUsed
-              ? "LLM gate fired for taxonomy classification"
-              : "Fully deterministic pipeline — no LLM involved"}
+            {briefing?.llmUsed ? "LLM gate fired" : "Deterministic — no LLM"}
           </span>
-        </div>
-      )}
+        </FactCard>
+      </div>
 
       <section className="mb-6 rounded-md border border-line bg-paper p-6">
         <h2 className="mb-4 flex items-center gap-2 border-b border-line pb-3 text-lg font-bold text-navy">
@@ -83,18 +93,32 @@ export default async function PublicationPage({
           ))}
         </ul>
         {briefing && briefing.severityReasons.length > 0 && (
-          <div className="mt-5 border-t border-line pt-4">
-            <p className="mb-2 flex items-center gap-1.5 text-sm font-semibold text-ink">
-              <AlertTriangle className="h-4 w-4 text-sev-high-fg" aria-hidden /> Why this severity
-            </p>
-            <ul className="space-y-1">
+          <details className="mt-5 rounded border border-line bg-canvas px-4 py-3">
+            <summary className="flex cursor-pointer list-none items-center gap-1.5 text-sm font-semibold text-ink [&::-webkit-details-marker]:hidden">
+              <AlertTriangle className="h-4 w-4 text-sev-high-fg" aria-hidden />
+              Why this severity ({briefing.severityReasons.length})
+              <span className="ml-auto text-[13px] font-normal text-primary underline-offset-2 hover:underline">
+                Show
+              </span>
+            </summary>
+            <ul className="mt-3 space-y-1 border-t border-line pt-3">
               {briefing.severityReasons.map((r, i) => (
                 <li key={i} className="text-sm text-ink-soft">· {r}</li>
               ))}
             </ul>
-          </div>
+          </details>
         )}
       </section>
+
+      {/* Action plan — ordered, trackable remediation steps */}
+      {briefing && briefing.actionPlan.length > 0 && (
+        <section className="mb-6 rounded-md border border-line bg-paper p-6">
+          <h2 className="mb-4 flex items-center gap-2 border-b border-line pb-3 text-lg font-bold text-navy">
+            <ClipboardList className="h-5 w-5 text-primary" aria-hidden /> Action plan
+          </h2>
+          <ActionPlan publicationId={publication.id} steps={briefing.actionPlan} />
+        </section>
+      )}
 
       <section className="mb-6 rounded-md border border-line bg-paper p-6">
         <h2 className="mb-4 flex items-center gap-2 border-b border-line pb-3 text-lg font-bold text-navy">
@@ -137,9 +161,14 @@ export default async function PublicationPage({
                   />
                 </div>
                 {m.matchedKeywords.length > 0 && (
-                  <p className="text-[13px] text-ink-faint">
-                    Evidence: {m.matchedKeywords.join(", ")}
-                  </p>
+                  <details className="text-[13px]">
+                    <summary className="cursor-pointer list-none text-primary underline-offset-2 hover:underline [&::-webkit-details-marker]:hidden">
+                      Mapping evidence ({m.matchedKeywords.length} keywords)
+                    </summary>
+                    <p className="mt-1 text-ink-faint">
+                      {m.matchedKeywords.join(", ")}
+                    </p>
+                  </details>
                 )}
               </div>
             ))}
@@ -148,14 +177,17 @@ export default async function PublicationPage({
       </section>
 
       {briefing && briefing.suggestedActions.length > 0 && (
-        <section className="mb-6 rounded-md border border-line bg-paper p-6">
-          <h2 className="mb-4 border-b border-line pb-3 text-lg font-bold text-navy">
-            Suggested actions
-          </h2>
-          <table className="w-full text-[15px]">
+        <details className="mb-6 rounded-md border border-line bg-paper px-6 py-4">
+          <summary className="cursor-pointer list-none text-lg font-bold text-navy [&::-webkit-details-marker]:hidden">
+            Suggested actions ({briefing.suggestedActions.length})
+            <span className="ml-2 text-sm font-normal text-primary underline-offset-2 hover:underline">
+              Show
+            </span>
+          </summary>
+          <table className="mt-3 w-full text-[15px]">
             <tbody>
               {briefing.suggestedActions.map((a, i) => (
-                <tr key={i} className="border-t border-line first:border-t-0">
+                <tr key={i} className="border-t border-line">
                   <td className="py-3 pr-4 text-ink">{a.action}</td>
                   <td className="whitespace-nowrap py-3 text-right text-sm text-ink-soft">
                     {a.owner}
@@ -164,7 +196,7 @@ export default async function PublicationPage({
               ))}
             </tbody>
           </table>
-        </section>
+        </details>
       )}
 
       <a

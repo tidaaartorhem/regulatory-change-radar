@@ -288,7 +288,7 @@ export function buildActionPlan(
   push(
     "Verify",
     "Record management attestation and file evidence",
-    "File the briefing, gap logs, and revised policies as the audit evidence package for this publication.",
+    `File the briefing, gap logs, and revised policies as the audit evidence package for "${truncate(pub.title, 70)}".`,
     "GRC Lead",
     dueDate(generatedAt, REMEDIATION_SLA_DAYS[severity]),
     "Signed attestation + evidence package in the GRC repository",

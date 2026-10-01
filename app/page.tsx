@@ -7,6 +7,7 @@ import {
 } from "@/lib/data";
 import { PublicationCard } from "@/components/publication-card";
 import { FeedFilters } from "@/components/feed-filters";
+import { DashboardCharts } from "@/components/dashboard-charts";
 import type { Severity } from "@/lib/types";
 
 interface SearchParams {
@@ -92,6 +93,12 @@ export default async function DashboardPage({
         <Stat icon={<Library className="h-5 w-5" />} label="Controls touched" value={mappedControls} />
         <Stat icon={<Radio className="h-5 w-5" />} label="Regulators watched" value={sources.length} />
       </div>
+
+      <DashboardCharts
+        publications={store.publications}
+        briefings={store.briefings}
+        mappings={store.mappings}
+      />
 
       <Suspense>
         <FeedFilters sources={sources} />

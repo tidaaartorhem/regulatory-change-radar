@@ -13,10 +13,25 @@ function seedInputs(): IngestInput[] {
     readFileSync(join(DATA, "sources.json"), "utf8"),
   ) as RegulatorSource[];
   const byId = new Map(sources.map((s) => [s.id, s]));
-  const seeds = JSON.parse(
-    readFileSync(join(DATA, "publications.seed.json"), "utf8"),
-  ) as Array<{ sourceId: string; title: string; link: string; publishedAt: string; text: string }>;
-  return seeds.slice(0, 2).map((s) => {
+  // Inline fixtures (real publication shapes, synthetic text) — the seed
+  // file was removed when ingestion went fully live.
+  const fixtures = [
+    {
+      sourceId: "nydfs",
+      title: "NYDFS adopts amendments to 23 NYCRR Part 500 cybersecurity regulation",
+      link: "https://www.dfs.ny.gov/example-amendment",
+      publishedAt: "2023-11-01T00:00:00Z",
+      text: "Covered entities must notify the superintendent within 72 hours of a cybersecurity event. The amendment adds requirements for privileged access management and endpoint detection.",
+    },
+    {
+      sourceId: "osfi",
+      title: "OSFI releases revised Guideline B-13 on Technology and Cyber Risk",
+      link: "https://www.osfi-bsif.gc.ca/example-b13",
+      publishedAt: "2024-01-15T00:00:00Z",
+      text: "Federally regulated entities should report technology incidents promptly and maintain tested recovery plans for critical systems.",
+    },
+  ];
+  return fixtures.map((s) => {
     const source = byId.get(s.sourceId)!;
     return {
       sourceId: s.sourceId,
@@ -56,6 +71,14 @@ describe("scan pipeline", () => {
         .map((m) => m.controlId)
         .sort();
       expect([...b.affectedControls].sort()).toEqual(mapped);
+    }
+    // Every briefing carries an ordered, trackable action plan.
+    for (const b of store.briefings) {
+      expect(b.actionPlan.length).toBeGreaterThan(0);
+      expect(b.actionPlan.map((s) => s.order)).toEqual(
+        b.actionPlan.map((_, i) => i + 1),
+      );
+      expect(b.actionPlan.every((s) => s.done === false)).toBe(true);
     }
   });
 
