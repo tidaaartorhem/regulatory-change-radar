@@ -23,7 +23,7 @@ export class OllamaSummarizer implements Summarizer {
     if (!this.baseUrl || !this.model) {
       throw new Error(
         "OllamaSummarizer is not configured: set OLLAMA_BASE_URL and OLLAMA_MODEL. " +
-          "The demo runs on the deterministic DemoSummarizer instead.",
+          "The pipeline uses the deterministic ExtractiveSummarizer instead.",
       );
     }
     throw new Error(

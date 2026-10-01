@@ -15,10 +15,11 @@ export interface FirecrawlScrapeData {
 }
 
 /**
- * Feature gate. Live scraping is opt-in: the deployed demo and the default
- * local run stay fully offline on seeded data. Auth is NOT handled here —
- * the skill CLI below attaches the stored `custom.firecrawl` credential via
- * its surrogate mechanism, so the app never sees, logs, or persists a raw key.
+ * Feature gate. Live HTML scraping is opt-in: without FIRECRAWL_ENABLED=true,
+ * HTML-only sources are skipped and reported as failed rather than scraped.
+ * Auth is NOT handled here — the skill CLI below attaches the stored
+ * `custom.firecrawl` credential via its surrogate mechanism, so the app never
+ * sees, logs, or persists a raw key.
  */
 export function firecrawlEnabled(): boolean {
   return process.env.FIRECRAWL_ENABLED === "true";
@@ -92,7 +93,7 @@ export function extractItemsFromScrape(
  * to the Firecrawl skill CLI, which authenticates with the stored
  * `custom.firecrawl` credential — the raw key never crosses into this app.
  * Throws when the adapter is disabled or the skill CLI is unavailable, so
- * callers can fall back to seeded demo mode.
+ * callers can record the source as failed.
  */
 export async function scrapeListingPage(
   source: RegulatorSource,

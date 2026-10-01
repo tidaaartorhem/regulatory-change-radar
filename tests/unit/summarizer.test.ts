@@ -1,9 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { DemoSummarizer } from "@/lib/summarize/demo";
+import { ExtractiveSummarizer } from "@/lib/summarize/extractive";
 
-const summarizer = new DemoSummarizer();
+const summarizer = new ExtractiveSummarizer();
 
-describe("DemoSummarizer", () => {
+describe("ExtractiveSummarizer", () => {
   const input = {
     title: "NYDFS amends 23 NYCRR Part 500 cybersecurity regulation",
     text: "The New York Department of Financial Services has adopted amendments to its cybersecurity regulation. Covered entities must notify the superintendent within 72 hours of a cybersecurity event. The amendments are effective November 1, 2024. This update introduces new governance requirements for large companies.",

@@ -2,7 +2,7 @@ import { readFileSync } from "fs";
 import { join } from "path";
 import { describe, expect, it } from "vitest";
 import { loadStore, type IngestInput } from "@/lib/ingest/store";
-import { DemoSummarizer } from "@/lib/summarize/demo";
+import { ExtractiveSummarizer } from "@/lib/summarize/extractive";
 import { runScan } from "@/lib/scan";
 import type { Control, RegulatorSource } from "@/lib/types";
 
@@ -26,7 +26,6 @@ function seedInputs(): IngestInput[] {
       text: s.text,
       jurisdiction: source.jurisdiction,
       sectors: source.sectors,
-      seeded: true,
     };
   });
 }
@@ -39,7 +38,7 @@ describe("scan pipeline", () => {
   it("produces publications, validated mappings, and briefings end to end", async () => {
     const store = loadStore("/nonexistent/scan-test.json");
     const all = controls();
-    const report = await runScan(store, seedInputs(), new DemoSummarizer(), all);
+    const report = await runScan(store, seedInputs(), new ExtractiveSummarizer(), all);
 
     expect(report.added).toBe(2);
     expect(store.publications).toHaveLength(2);
@@ -64,17 +63,17 @@ describe("scan pipeline", () => {
     const store = loadStore("/nonexistent/scan-test.json");
     const all = controls();
     const inputs = seedInputs();
-    await runScan(store, inputs, new DemoSummarizer(), all);
-    const second = await runScan(store, inputs, new DemoSummarizer(), all);
+    await runScan(store, inputs, new ExtractiveSummarizer(), all);
+    const second = await runScan(store, inputs, new ExtractiveSummarizer(), all);
     expect(second.added).toBe(0);
     expect(second.skipped).toBe(2);
     expect(store.publications).toHaveLength(2);
     expect(store.briefings).toHaveLength(2);
   });
 
-  it("never fires the LLM gate with the deterministic demo summarizer", async () => {
+  it("never fires the LLM gate with the deterministic extractive summarizer", async () => {
     const store = loadStore("/nonexistent/scan-test.json");
-    await runScan(store, seedInputs(), new DemoSummarizer(), controls());
+    await runScan(store, seedInputs(), new ExtractiveSummarizer(), controls());
     expect(store.briefings.every((b) => b.llmUsed === false)).toBe(true);
     expect(store.mappings.every((m) => m.method === "taxonomy")).toBe(true);
   });

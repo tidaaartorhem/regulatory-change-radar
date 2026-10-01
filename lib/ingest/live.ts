@@ -7,7 +7,8 @@ import { firecrawlEnabled, scrapeListingPage } from "@/lib/ingest/firecrawl";
  *   1. RSS first (no key needed, cheapest, most reliable)
  *   2. Firecrawl scrape adapter for HTML-only sources (opt-in via
  *      FIRECRAWL_ENABLED; auth delegated to the skill's stored credential)
- *   3. Otherwise: throw, and callers fall back to seeded demo mode
+ *   3. Otherwise: throw, and callers record the source as failed —
+ *      the radar never fabricates publications.
  */
 export async function fetchSourceItems(
   source: RegulatorSource,

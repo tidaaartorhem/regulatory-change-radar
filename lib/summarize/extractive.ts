@@ -57,13 +57,13 @@ function sentenceScore(s: string): number {
 }
 
 /**
- * DemoSummarizer — deterministic, template-based, zero API keys.
+ * ExtractiveSummarizer — deterministic, template-based, zero API keys.
  * Same input always yields the same summary, which is exactly what a
  * compliance audit trail needs. It extracts rather than invents: bullets are
  * verbatim sentences from the source text, ranked by regulatory signal words.
  */
-export class DemoSummarizer implements Summarizer {
-  readonly name = "demo";
+export class ExtractiveSummarizer implements Summarizer {
+  readonly name = "extractive";
   readonly usesLlm = false;
 
   summarize({ title, text }: SummarizeInput): Summary {

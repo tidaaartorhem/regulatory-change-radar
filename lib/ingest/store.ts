@@ -54,7 +54,6 @@ export interface IngestInput {
   text: string;
   jurisdiction: Publication["jurisdiction"];
   sectors: Publication["sectors"];
-  seeded?: boolean;
 }
 
 /**
@@ -87,7 +86,7 @@ export function upsertPublications(
       contentHash: hash,
       jurisdiction: input.jurisdiction,
       sectors: input.sectors,
-      seeded: input.seeded,
+      ingestedAt: new Date().toISOString(),
     });
   }
   store.publications.push(...added);

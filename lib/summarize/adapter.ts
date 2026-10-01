@@ -19,7 +19,7 @@ export interface SummarizeInput {
 }
 
 /**
- * Summarizer adapter interface. The default DemoSummarizer is fully
+ * Summarizer adapter interface. The default ExtractiveSummarizer is fully
  * deterministic and needs no keys. LLM-backed adapters exist ONLY to feed the
  * single gated call site in lib/map/llmGate.ts — they are never used for
  * free-form briefing text, because in compliance every word must be auditable.

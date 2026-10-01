@@ -11,7 +11,7 @@ import type { Summarizer } from "@/lib/summarize/adapter";
  *   2. Any returned ID not in that list is dropped (hallucinated controls
  *      can never enter a briefing).
  *   3. Scores are clamped to [0, 1].
- *   4. If the adapter is not LLM-backed (the default demo), the gate stays
+ *   4. If the adapter is not LLM-backed (the default), the gate stays
  *      shut and the deterministic taxonomy scorer is the only mapper.
  *
  * Everything else — ingest, dedupe, diffing, severity, briefing assembly —

@@ -37,8 +37,8 @@ export interface Publication {
   contentHash: string;
   jurisdiction: Jurisdiction;
   sectors: Sector[];
-  /** True for the built-in demo items shipped with the repo. */
-  seeded?: boolean;
+  /** When this item was retrieved by the radar (ISO datetime). */
+  ingestedAt: string;
 }
 
 export interface Control {
@@ -77,10 +77,23 @@ export interface Briefing {
   llmUsed: boolean;
 }
 
+export interface ScanSourceResult {
+  source: string;
+  ok: boolean;
+  detail: string;
+}
+
 export interface StoreShape {
   version: 1;
   publications: Publication[];
   mappings: ControlMapping[];
   briefings: Briefing[];
   lastScanAt: string | null;
+  /** Most recent scan report, so failures are visible instead of silent. */
+  lastScanReport?: {
+    at: string;
+    added: number;
+    skipped: number;
+    results: ScanSourceResult[];
+  };
 }

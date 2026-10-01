@@ -19,7 +19,7 @@ export class OpenAiSummarizer implements Summarizer {
     if (!key) {
       throw new Error(
         "OpenAiSummarizer is not configured: set OPENAI_API_KEY (and optionally OPENAI_BASE_URL / OPENAI_MODEL). " +
-          "The demo runs on the deterministic DemoSummarizer instead.",
+          "The pipeline uses the deterministic ExtractiveSummarizer instead.",
       );
     }
     throw new Error(

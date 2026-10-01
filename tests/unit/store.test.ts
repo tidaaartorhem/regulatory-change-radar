@@ -67,11 +67,11 @@ describe("saveStore / loadStore", () => {
     const dir = mkdtempSync(join(tmpdir(), "rcr-"));
     const path = join(dir, "store.json");
     const store = loadStore(path);
-    upsertPublications(store, [input({ seeded: true })]);
+    upsertPublications(store, [input()]);
     saveStore(store, path);
     const reloaded = loadStore(path);
     expect(reloaded.publications).toHaveLength(1);
-    expect(reloaded.publications[0].seeded).toBe(true);
+    expect(typeof reloaded.publications[0].ingestedAt).toBe("string");
     expect(JSON.parse(readFileSync(path, "utf8")).version).toBe(1);
   });
 

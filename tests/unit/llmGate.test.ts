@@ -9,7 +9,7 @@ const CANDIDATES: Control[] = [
 ];
 
 const nonLlmAdapter: Summarizer = {
-  name: "demo",
+  name: "extractive",
   usesLlm: false,
   summarize: (): Summary => ({ whatChanged: [], keyPhrases: [], documentKind: "notice" }),
 };
