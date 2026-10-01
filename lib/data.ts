@@ -12,9 +12,10 @@ import type {
 import { loadStore, saveStore } from "@/lib/ingest/store";
 
 /**
- * Server-side data access. The JSON store is seeded at build time; an
- * in-memory copy serves reads and absorbs "Run scan" writes, with a
- * best-effort persist for environments with a writable filesystem.
+ * Server-side data access. The JSON store is built at build time from live
+ * regulator feeds; an in-memory copy serves reads and absorbs "Run scan"
+ * writes, with a best-effort persist for environments with a writable
+ * filesystem.
  */
 let memStore: StoreShape | null = null;
 

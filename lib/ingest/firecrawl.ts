@@ -101,7 +101,7 @@ export async function scrapeListingPage(
   if (!firecrawlEnabled()) {
     throw new Error(
       `Firecrawl scrape adapter is disabled for ${source.shortName}: set FIRECRAWL_ENABLED=true to enable live scraping. ` +
-        `Demo mode stays fully offline on seeded data.`,
+        `Without it, this source will be reported as failed.`,
     );
   }
   const bin = join(skillBinDir(), "scrape.py");

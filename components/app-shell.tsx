@@ -10,10 +10,10 @@ const NAV = [
 export function AppShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex min-h-screen flex-col">
-      {/* Thin utility bar — official-service feel, honestly labeled. */}
+      {/* Thin utility bar — official-service feel. */}
       <div className="bg-navy-deep text-white">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-1.5 text-[11px] uppercase tracking-widest text-white/80">
-          <span>Demonstration project</span>
+          <span>Regulatory change intelligence</span>
           <span className="hidden sm:inline">
             US + Canada &middot; Banking &middot; Insurance &middot; Cyber
           </span>
@@ -56,14 +56,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
       <footer className="border-t border-line bg-paper">
         <div className="mx-auto max-w-6xl px-5 py-5 text-sm text-ink-soft">
-          <p className="font-medium text-ink">
-            Demonstration project. Not affiliated with any government agency or
-            regulator.
-          </p>
-          <p className="mt-1 text-[13px]">
-            Demo data is seeded and clearly labeled. Connect a summarizer
-            adapter to run live scans against regulator feeds.
-          </p>
+          <p>Not affiliated with any government agency or regulator.</p>
         </div>
       </footer>
     </div>

@@ -19,11 +19,6 @@ export function PublicationCard({ view }: { view: PublicationView }) {
         <span>{publication.jurisdiction === "US" ? "United States" : "Canada"}</span>
         <span aria-hidden>·</span>
         <span>{new Date(publication.publishedAt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}</span>
-        {publication.seeded && (
-          <span className="ml-auto rounded bg-tag-bg px-1.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-tag-fg">
-            Demo seed
-          </span>
-        )}
       </div>
       <h2 className="mb-2 text-lg font-semibold leading-snug text-ink group-hover:text-primary-dark group-hover:underline">
         {publication.title}

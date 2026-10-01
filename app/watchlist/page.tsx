@@ -17,7 +17,7 @@ export default async function WatchlistPage() {
     // Surface the outcome via a re-rendered page; details in server logs.
     console.log(
       `scan: +${result.added} added, ${result.skipped} skipped`,
-      result.notes,
+      result.results,
     );
   }
 
@@ -74,6 +74,39 @@ export default async function WatchlistPage() {
           </p>
         )}
       </div>
+
+      {store.lastScanReport && (
+        <div className="mb-6 rounded-md border border-line bg-paper p-6">
+          <h2 className="mb-1 text-base font-bold text-navy">Last scan</h2>
+          <p className="mb-3 text-sm text-ink-soft">
+            {new Date(store.lastScanReport.at).toLocaleString("en-US", {
+              month: "short",
+              day: "numeric",
+              hour: "numeric",
+              minute: "2-digit",
+            })}{" "}
+            · +{store.lastScanReport.added} added, {store.lastScanReport.skipped}{" "}
+            already tracked
+          </p>
+          <ul className="divide-y divide-line border-t border-b border-line">
+            {store.lastScanReport.results.map((r) => (
+              <li key={r.source} className="flex items-center gap-2 py-2 text-sm">
+                <span
+                  className={cn(
+                    "inline-block h-2.5 w-2.5 shrink-0 rounded-full",
+                    r.ok ? "bg-sev-low-fg" : "bg-sev-critical-fg",
+                  )}
+                  aria-hidden
+                />
+                <span className="font-semibold text-ink">{r.source}</span>
+                <span className={r.ok ? "text-ink-soft" : "text-sev-critical-fg"}>
+                  {r.ok ? r.detail : `failed — ${r.detail}`}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
 
       <form action={saveWatchlistAction}>
         <div className="mb-4 flex items-center justify-between">

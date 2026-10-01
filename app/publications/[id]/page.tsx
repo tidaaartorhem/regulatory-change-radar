@@ -43,11 +43,15 @@ export default async function PublicationPage({
             year: "numeric",
           })}
         </span>
-        {publication.seeded && (
-          <span className="rounded bg-tag-bg px-1.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-tag-fg">
-            Demo seed
-          </span>
-        )}
+        <span aria-hidden>·</span>
+        <span>
+          Retrieved{" "}
+          {new Date(publication.ingestedAt).toLocaleDateString("en-US", {
+            month: "long",
+            day: "numeric",
+            year: "numeric",
+          })}
+        </span>
       </p>
 
       <h1 className="mb-4 text-3xl font-bold leading-tight text-ink">
@@ -171,6 +175,17 @@ export default async function PublicationPage({
       >
         View source publication <ExternalLink className="h-4 w-4" aria-hidden />
       </a>
+      <p className="mt-3 break-all text-[13px] text-ink-faint">
+        Source:{" "}
+        <a
+          href={publication.url}
+          target="_blank"
+          rel="noreferrer"
+          className="text-primary underline-offset-2 hover:underline"
+        >
+          {publication.url}
+        </a>
+      </p>
     </div>
   );
 }
