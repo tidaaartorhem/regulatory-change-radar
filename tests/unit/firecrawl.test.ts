@@ -68,6 +68,49 @@ describe("extractItemsFromScrape", () => {
     expect(dated?.publishedAt.startsWith("2024-01-15")).toBe(true);
   });
 
+  it("drops image links: markdown images and bare image-file URLs", () => {
+    const md = [
+      "- ![A man working on a tablet in a home office](https://www.example-regulator.gov/images/2026/04/29/shutterstock_2477030163.jpg?itok=abc)",
+      "- [NIST posts guidance on post-quantum cryptography migration plans](https://www.example-regulator.gov/news/2026/pqc-guidance.html)",
+      "- [A very long descriptive caption for a chart image file here](https://www.example-regulator.gov/images/chart.png)",
+    ].join("\n");
+    const items = extractItemsFromScrape({ markdown: md }, PAGE);
+    expect(items).toHaveLength(1);
+    expect(items[0].link).toContain("pqc-guidance.html");
+  });
+
+  it("drops topic/filter listing links, keeps real releases", () => {
+    const md = [
+      "- [Alternative and Complex Products](https://www.example-regulator.gov/rules-guidance/notices/by-topic?term=31)",
+      "- [FINRA reminds firms of their obligations on outside business activities](https://www.example-regulator.gov/rules-guidance/notices/2026-11-10.html)",
+    ].join("\n");
+    const items = extractItemsFromScrape({ markdown: md }, PAGE);
+    expect(items).toHaveLength(1);
+    expect(items[0].link).toContain("2026-11-10.html");
+  });
+
+  it("drops video, podcast, subscription and homepage side links", () => {
+    const md = [
+      "- [FDIC Quarterly Banking Profile (2nd Quarter 2024)](https://www.youtube.com/watch?v=rmYRJsKyhNg)",
+      "- [Subscribe for email reminders](https://public.govdelivery.com/accounts/USFDIC/subscriber/new?topic_id=USFDIC_22)",
+      "- [**Small Business Lending**](https://creators.spotify.com/pod/show/fdic/episodes/Small-Business-Lending-e2t4j)",
+      "- [Department of Financial Services](https://www.dfs.ny.gov/)",
+      "- [OCC issues a bulletin on third-party risk management practices](https://www.example-regulator.gov/news-issuances/bulletins/2026/bulletin-2026-57.html)",
+    ].join("\n");
+    const items = extractItemsFromScrape({ markdown: md }, PAGE);
+    expect(items).toHaveLength(1);
+    expect(items[0].link).toContain("bulletin-2026-57.html");
+  });
+
+  it("clamps a future effective date to scrape time instead of trusting it", () => {
+    const md =
+      "- [Federal Reserve Board announces pricing, effective January 1, 2027, for payment services](https://www.example-regulator.gov/newsevents/pressreleases/other20261112a.htm)";
+    const items = extractItemsFromScrape({ markdown: md }, PAGE);
+    expect(items).toHaveLength(1);
+    expect(items[0].publishedAt.startsWith("2027")).toBe(false);
+    expect(items[0].publishedAt.startsWith(new Date().toISOString().slice(0, 10))).toBe(true);
+  });
+
   it("returns [] for empty or link-free scrapes", () => {
     expect(extractItemsFromScrape({}, PAGE)).toEqual([]);
     expect(extractItemsFromScrape({ markdown: "# Nothing here" }, PAGE)).toEqual([]);

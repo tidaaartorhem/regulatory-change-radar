@@ -42,7 +42,31 @@ function extractDate(line: string): string | null {
     ) ?? line.match(/\b\d{4}-\d{2}-\d{2}\b/);
   if (!m) return null;
   const d = new Date(m[0]);
-  return Number.isNaN(d.getTime()) ? null : d.toISOString();
+  // A date after today is an effective/embargo date quoted in the title,
+  // not the publication date (e.g. Fed pricing "effective January 1, 2027"
+  // on a November 2026 release) — fall back to scrape time instead.
+  if (Number.isNaN(d.getTime()) || d.getTime() > Date.now()) return null;
+  return d.toISOString();
+}
+
+const IMAGE_PATH = /\.(jpg|jpeg|png|gif|webp|svg|avif|ico)$/i;
+
+// Hosts that never carry regulator publications: video/podcast platforms
+// and email-subscription services surface on newsroom pages as side links.
+const NON_PUBLICATION_HOSTS = [
+  "youtube.com",
+  "youtu.be",
+  "spotify.com",
+  "govdelivery.com",
+  "vimeo.com",
+  "soundcloud.com",
+];
+
+function isNonPublicationHost(hostname: string): boolean {
+  const host = hostname.toLowerCase().replace(/^www\./, "");
+  return NON_PUBLICATION_HOSTS.some(
+    (h) => host === h || host.endsWith(`.${h}`),
+  );
 }
 
 /**
@@ -68,13 +92,24 @@ export function extractItemsFromScrape(
       const anchor = m[1].replace(/\s+/g, " ").trim();
       const href = m[2].trim();
       if (anchor.length < 25 || JUNK_ANCHORS.test(anchor)) continue;
+      // Markdown image links (`![alt](url)`) are page furniture, not releases.
+      if (line[m.index - 1] === "!") continue;
       let absolute: string;
+      let urlObj: URL;
       try {
-        absolute = new URL(href, pageUrl).toString();
+        urlObj = new URL(href, pageUrl);
+        absolute = urlObj.toString();
       } catch {
         continue;
       }
       if (!absolute.startsWith("http")) continue;
+      // Image files and topic/filter listing pages are not publications.
+      if (IMAGE_PATH.test(urlObj.pathname)) continue;
+      if (urlObj.pathname.includes("by-topic")) continue;
+      // Video/podcast/subscription side links, and links back to the
+      // newsroom's own homepage, are page furniture, not releases.
+      if (isNonPublicationHost(urlObj.hostname)) continue;
+      if (urlObj.pathname === "/" || urlObj.pathname === "") continue;
       if (seen.has(absolute)) continue;
       seen.add(absolute);
       items.push({
