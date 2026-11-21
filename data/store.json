@@ -3136,6 +3136,51 @@
         "cyber"
       ],
       "ingestedAt": "2026-11-18T13:49:13.486Z"
+    },
+    {
+      "id": "sec-90dd0f658aff",
+      "sourceId": "sec",
+      "title": "SEC Issues Proposal to Restructure the Consolidated Audit Trail",
+      "url": "https://www.sec.gov/newsroom/press-releases/2026-117-sec-issues-proposal-restructure-consolidated-audit-trail",
+      "publishedAt": "2026-11-20T18:03:24.000Z",
+      "rawText": "The Securities and Exchange Commission today issued a proposal to address the inefficiencies in the current governance and funding model of the Consolidated Audit Trail (CAT). The Commission is proposing to rescind Rule 613 of Regulation NMS, which…",
+      "contentHash": "90dd0f658aff24279c7ec28ee08396975756f34540fe2f619009f14efa8eae3f",
+      "jurisdiction": "US",
+      "sectors": [
+        "banking",
+        "cyber"
+      ],
+      "ingestedAt": "2026-11-21T13:48:09.199Z"
+    },
+    {
+      "id": "sec-6f668b35082a",
+      "sourceId": "sec",
+      "title": "SEC Charges Indianapolis-Based Backward Hat Capital and Its Co-Founders With $560 Million Dollar Offering Fraud and Obtains Emergency Relief",
+      "url": "https://www.sec.gov/newsroom/press-releases/2026-116-sec-charges-indianapolis-based-backward-hat-capital-its-co-founders-560-million-dollar-offering",
+      "publishedAt": "2026-11-20T14:28:28.000Z",
+      "rawText": "The Securities and Exchange Commission today announced that it has obtained a temporary restraining order, asset freeze, expedited discovery, and other relief against Indianapolis-based Backward Hat Capital, its co-founders Phillip Williams and Devin…",
+      "contentHash": "6f668b35082affd5edd136b02ff8c4667523ecb57603dd4d67308040b78abc32",
+      "jurisdiction": "US",
+      "sectors": [
+        "banking",
+        "cyber"
+      ],
+      "ingestedAt": "2026-11-21T13:48:09.199Z"
+    },
+    {
+      "id": "sec-fc6e3bc1a38f",
+      "sourceId": "sec",
+      "title": "SEC: Eight Entities Used Fake Crypto Asset Trading Platforms to Steal More Than $37 Million From U.S. Investors",
+      "url": "https://www.sec.gov/newsroom/press-releases/2026-115-sec-eight-entities-used-fake-crypto-asset-trading-platforms-steal-more-37-million-us-investors",
+      "publishedAt": "2026-11-19T14:39:02.000Z",
+      "rawText": "The Securities and Exchange Commission today charged eight Colorado-based entities, likely operated by individuals located overseas, for defrauding U.S. investors out of more than $37 million. The defendants allegedly lured investors to believe they were…",
+      "contentHash": "fc6e3bc1a38f20e7304b9529a7e477999e68a72e3906133daa28644cf4ff63d5",
+      "jurisdiction": "US",
+      "sectors": [
+        "banking",
+        "cyber"
+      ],
+      "ingestedAt": "2026-11-21T13:48:09.199Z"
     }
   ],
   "mappings": [
@@ -21340,13 +21385,232 @@
       ],
       "generatedAt": "2026-11-18T13:49:13.491Z",
       "llmUsed": false
+    },
+    {
+      "publicationId": "sec-90dd0f658aff",
+      "whatChanged": [
+        "The Commission is proposing to rescind Rule 613 of Regulation NMS, which…",
+        "The Securities and Exchange Commission today issued a proposal to address the inefficiencies in the current governance and funding model of the Consolidated Audit Trail (CAT)."
+      ],
+      "affectedControls": [],
+      "severity": "medium",
+      "severityReasons": [],
+      "suggestedActions": [
+        {
+          "action": "Run a gap assessment of the mapped controls against current policies",
+          "owner": "Chief Compliance Officer"
+        },
+        {
+          "action": "Brief the board risk committee if obligations changed",
+          "owner": "Chief Risk Officer"
+        },
+        {
+          "action": "Validate detective coverage for the mapped controls in the SIEM",
+          "owner": "SOC Lead"
+        },
+        {
+          "action": "Confirm incident playbooks reflect any new notification timelines",
+          "owner": "CISO"
+        },
+        {
+          "action": "Confirm applicability across US and Canadian legal entities",
+          "owner": "Regulatory Affairs"
+        },
+        {
+          "action": "Add to the next GRC committee agenda with the mapped controls",
+          "owner": "GRC Lead"
+        }
+      ],
+      "actionPlan": [
+        {
+          "id": "sec-90dd0f658aff-step-1",
+          "order": 1,
+          "phase": "Assess",
+          "title": "Confirm applicability of \"SEC Issues Proposal to Restructure the Consolidated Audit Trail\"",
+          "detail": "Review the banking/cyber scope against your legal entities and confirm this US publication applies before spending remediation effort.",
+          "owner": "Regulatory Affairs",
+          "dueDate": "2026-12-05",
+          "evidence": "Applicability decision recorded with rationale",
+          "done": false
+        },
+        {
+          "id": "sec-90dd0f658aff-step-2",
+          "order": 2,
+          "phase": "Verify",
+          "title": "Update policies and procedures",
+          "detail": "Reflect the new obligations in written policy, citing the source publication (SEC Issues Proposal to Restructure the Consolidated Audit Trail).",
+          "owner": "Policy Owner",
+          "dueDate": "2027-01-20",
+          "evidence": "Revised policy document with approval record",
+          "done": false
+        },
+        {
+          "id": "sec-90dd0f658aff-step-3",
+          "order": 3,
+          "phase": "Verify",
+          "title": "Record management attestation and file evidence",
+          "detail": "File the briefing, gap logs, and revised policies as the audit evidence package for \"SEC Issues Proposal to Restructure the Consolidated Audit Trail\".",
+          "owner": "GRC Lead",
+          "dueDate": "2027-01-20",
+          "evidence": "Signed attestation + evidence package in the GRC repository",
+          "done": false
+        }
+      ],
+      "generatedAt": "2026-11-21T13:48:09.212Z",
+      "llmUsed": false
+    },
+    {
+      "publicationId": "sec-6f668b35082a",
+      "whatChanged": [
+        "The Securities and Exchange Commission today announced that it has obtained a temporary restraining order, asset freeze, expedited discovery, and other relief against Indianapolis-based Backward Hat Capital, its co-founders Phillip Williams and Devin…"
+      ],
+      "affectedControls": [],
+      "severity": "medium",
+      "severityReasons": [],
+      "suggestedActions": [
+        {
+          "action": "Run a gap assessment of the mapped controls against current policies",
+          "owner": "Chief Compliance Officer"
+        },
+        {
+          "action": "Brief the board risk committee if obligations changed",
+          "owner": "Chief Risk Officer"
+        },
+        {
+          "action": "Validate detective coverage for the mapped controls in the SIEM",
+          "owner": "SOC Lead"
+        },
+        {
+          "action": "Confirm incident playbooks reflect any new notification timelines",
+          "owner": "CISO"
+        },
+        {
+          "action": "Confirm applicability across US and Canadian legal entities",
+          "owner": "Regulatory Affairs"
+        },
+        {
+          "action": "Add to the next GRC committee agenda with the mapped controls",
+          "owner": "GRC Lead"
+        }
+      ],
+      "actionPlan": [
+        {
+          "id": "sec-6f668b35082a-step-1",
+          "order": 1,
+          "phase": "Assess",
+          "title": "Confirm applicability of \"SEC Charges Indianapolis-Based Backward Hat Capital and Its Co-Founders With $560 Million…\"",
+          "detail": "Review the banking/cyber scope against your legal entities and confirm this US publication applies before spending remediation effort.",
+          "owner": "Regulatory Affairs",
+          "dueDate": "2026-12-05",
+          "evidence": "Applicability decision recorded with rationale",
+          "done": false
+        },
+        {
+          "id": "sec-6f668b35082a-step-2",
+          "order": 2,
+          "phase": "Verify",
+          "title": "Update policies and procedures",
+          "detail": "Reflect the new obligations in written policy, citing the source publication (SEC Charges Indianapolis-Based Backward Hat Capital and Its Co-Founde…).",
+          "owner": "Policy Owner",
+          "dueDate": "2027-01-20",
+          "evidence": "Revised policy document with approval record",
+          "done": false
+        },
+        {
+          "id": "sec-6f668b35082a-step-3",
+          "order": 3,
+          "phase": "Verify",
+          "title": "Record management attestation and file evidence",
+          "detail": "File the briefing, gap logs, and revised policies as the audit evidence package for \"SEC Charges Indianapolis-Based Backward Hat Capital and Its Co-Founde…\".",
+          "owner": "GRC Lead",
+          "dueDate": "2027-01-20",
+          "evidence": "Signed attestation + evidence package in the GRC repository",
+          "done": false
+        }
+      ],
+      "generatedAt": "2026-11-21T13:48:09.213Z",
+      "llmUsed": false
+    },
+    {
+      "publicationId": "sec-fc6e3bc1a38f",
+      "whatChanged": [
+        "investors out of more than $37 million.",
+        "The Securities and Exchange Commission today charged eight Colorado-based entities, likely operated by individuals located overseas, for defrauding U.S.",
+        "The defendants allegedly lured investors to believe they were…"
+      ],
+      "affectedControls": [],
+      "severity": "medium",
+      "severityReasons": [],
+      "suggestedActions": [
+        {
+          "action": "Run a gap assessment of the mapped controls against current policies",
+          "owner": "Chief Compliance Officer"
+        },
+        {
+          "action": "Brief the board risk committee if obligations changed",
+          "owner": "Chief Risk Officer"
+        },
+        {
+          "action": "Validate detective coverage for the mapped controls in the SIEM",
+          "owner": "SOC Lead"
+        },
+        {
+          "action": "Confirm incident playbooks reflect any new notification timelines",
+          "owner": "CISO"
+        },
+        {
+          "action": "Confirm applicability across US and Canadian legal entities",
+          "owner": "Regulatory Affairs"
+        },
+        {
+          "action": "Add to the next GRC committee agenda with the mapped controls",
+          "owner": "GRC Lead"
+        }
+      ],
+      "actionPlan": [
+        {
+          "id": "sec-fc6e3bc1a38f-step-1",
+          "order": 1,
+          "phase": "Assess",
+          "title": "Confirm applicability of \"SEC: Eight Entities Used Fake Crypto Asset Trading Platforms to Steal More Than $37 Milli…\"",
+          "detail": "Review the banking/cyber scope against your legal entities and confirm this US publication applies before spending remediation effort.",
+          "owner": "Regulatory Affairs",
+          "dueDate": "2026-12-05",
+          "evidence": "Applicability decision recorded with rationale",
+          "done": false
+        },
+        {
+          "id": "sec-fc6e3bc1a38f-step-2",
+          "order": 2,
+          "phase": "Verify",
+          "title": "Update policies and procedures",
+          "detail": "Reflect the new obligations in written policy, citing the source publication (SEC: Eight Entities Used Fake Crypto Asset Trading Platforms to Steal…).",
+          "owner": "Policy Owner",
+          "dueDate": "2027-01-20",
+          "evidence": "Revised policy document with approval record",
+          "done": false
+        },
+        {
+          "id": "sec-fc6e3bc1a38f-step-3",
+          "order": 3,
+          "phase": "Verify",
+          "title": "Record management attestation and file evidence",
+          "detail": "File the briefing, gap logs, and revised policies as the audit evidence package for \"SEC: Eight Entities Used Fake Crypto Asset Trading Platforms to Steal…\".",
+          "owner": "GRC Lead",
+          "dueDate": "2027-01-20",
+          "evidence": "Signed attestation + evidence package in the GRC repository",
+          "done": false
+        }
+      ],
+      "generatedAt": "2026-11-21T13:48:09.213Z",
+      "llmUsed": false
     }
   ],
-  "lastScanAt": "2026-11-18T13:49:13.491Z",
+  "lastScanAt": "2026-11-21T13:48:56.708Z",
   "lastScanReport": {
-    "at": "2026-11-18T13:49:13.491Z",
-    "added": 6,
-    "skipped": 129,
+    "at": "2026-11-21T13:48:56.708Z",
+    "added": 0,
+    "skipped": 35,
     "results": [
       {
         "source": "SEC",
@@ -21360,58 +21624,58 @@
       },
       {
         "source": "NIST",
-        "ok": true,
-        "detail": "+0 items via HTML scrape"
+        "ok": false,
+        "detail": "Source NIST has no RSS feed and the Firecrawl scrape adapter is disabled (set FIRECRAWL_ENABLED=true for live HTML scraping)."
       },
       {
         "source": "FINRA",
-        "ok": true,
-        "detail": "+12 items via HTML scrape"
+        "ok": false,
+        "detail": "Source FINRA has no RSS feed and the Firecrawl scrape adapter is disabled (set FIRECRAWL_ENABLED=true for live HTML scraping)."
       },
       {
         "source": "OCC",
-        "ok": true,
-        "detail": "+15 items via HTML scrape"
+        "ok": false,
+        "detail": "Source OCC has no RSS feed and the Firecrawl scrape adapter is disabled (set FIRECRAWL_ENABLED=true for live HTML scraping)."
       },
       {
         "source": "FDIC",
-        "ok": true,
-        "detail": "+15 items via HTML scrape"
+        "ok": false,
+        "detail": "Source FDIC has no RSS feed and the Firecrawl scrape adapter is disabled (set FIRECRAWL_ENABLED=true for live HTML scraping)."
       },
       {
         "source": "Federal Reserve",
-        "ok": true,
-        "detail": "+15 items via HTML scrape"
+        "ok": false,
+        "detail": "Source Federal Reserve has no RSS feed and the Firecrawl scrape adapter is disabled (set FIRECRAWL_ENABLED=true for live HTML scraping)."
       },
       {
         "source": "CFPB",
-        "ok": true,
-        "detail": "+15 items via HTML scrape"
+        "ok": false,
+        "detail": "Source CFPB has no RSS feed and the Firecrawl scrape adapter is disabled (set FIRECRAWL_ENABLED=true for live HTML scraping)."
       },
       {
         "source": "NYDFS",
-        "ok": true,
-        "detail": "+13 items via HTML scrape"
+        "ok": false,
+        "detail": "Source NYDFS has no RSS feed and the Firecrawl scrape adapter is disabled (set FIRECRAWL_ENABLED=true for live HTML scraping)."
       },
       {
         "source": "NAIC",
-        "ok": true,
-        "detail": "+0 items via HTML scrape"
+        "ok": false,
+        "detail": "Source NAIC has no RSS feed and the Firecrawl scrape adapter is disabled (set FIRECRAWL_ENABLED=true for live HTML scraping)."
       },
       {
         "source": "FTC",
-        "ok": true,
-        "detail": "+15 items via HTML scrape"
+        "ok": false,
+        "detail": "Source FTC has no RSS feed and the Firecrawl scrape adapter is disabled (set FIRECRAWL_ENABLED=true for live HTML scraping)."
       },
       {
         "source": "OSFI",
-        "ok": true,
-        "detail": "+0 items via HTML scrape"
+        "ok": false,
+        "detail": "Source OSFI has no RSS feed and the Firecrawl scrape adapter is disabled (set FIRECRAWL_ENABLED=true for live HTML scraping)."
       },
       {
         "source": "FCAC",
         "ok": false,
-        "detail": "Firecrawl scrape failed for FCAC: Command failed: python3 /home/hatch/workspace/skills/firecrawl/bin/scrape.py https://www.canada.ca/en/financial-consumer-agency/corporate/news.html markdown,links\nFir"
+        "detail": "Source FCAC has no RSS feed and the Firecrawl scrape adapter is disabled (set FIRECRAWL_ENABLED=true for live HTML scraping)."
       },
       {
         "source": "Bank of Canada",
@@ -21421,17 +21685,17 @@
       {
         "source": "FSRA",
         "ok": false,
-        "detail": "Firecrawl scrape failed for FSRA: Command failed: python3 /home/hatch/workspace/skills/firecrawl/bin/scrape.py https://www.fsrao.ca/newsroom markdown,links\nFirecrawl HTTP 429: {\"success\":false,\"error\""
+        "detail": "Source FSRA has no RSS feed and the Firecrawl scrape adapter is disabled (set FIRECRAWL_ENABLED=true for live HTML scraping)."
       },
       {
         "source": "AMF",
         "ok": false,
-        "detail": "Firecrawl scrape failed for AMF: Command failed: python3 /home/hatch/workspace/skills/firecrawl/bin/scrape.py https://lautorite.qc.ca/en/general-public/media-centre/news/ markdown,links\nFirecrawl HTTP"
+        "detail": "Source AMF has no RSS feed and the Firecrawl scrape adapter is disabled (set FIRECRAWL_ENABLED=true for live HTML scraping)."
       },
       {
         "source": "CCCS",
         "ok": false,
-        "detail": "Firecrawl scrape failed for CCCS: Command failed: python3 /home/hatch/workspace/skills/firecrawl/bin/scrape.py https://www.cyber.gc.ca/en/alerts-advisories markdown,links\nFirecrawl HTTP 429: {\"success"
+        "detail": "Source CCCS has no RSS feed and the Firecrawl scrape adapter is disabled (set FIRECRAWL_ENABLED=true for live HTML scraping)."
       }
     ]
   }
