@@ -53,7 +53,14 @@ export async function runScanAction(): Promise<ScanActionResult> {
   }
 
   const store = getStore();
-  const report = await runScan(store, inputs, new ExtractiveSummarizer(), getControls());
+  const report = await runScan(
+    store,
+    inputs,
+    new ExtractiveSummarizer(),
+    getControls(),
+    undefined,
+    { sourcesSucceeded: results.filter((r) => r.ok).length },
+  );
   store.lastScanReport = {
     at: new Date().toISOString(),
     added: report.added,

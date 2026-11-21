@@ -24,7 +24,7 @@
   "name": "regulatory-change-radar",
   "private": true,
   "scripts": {
-    "build": "npm run data:ingest && next build",
+    "build": "npm run data:ingest || true; next build",
     "dev": "next dev",
     "lint": "eslint",
     "start": "next start",

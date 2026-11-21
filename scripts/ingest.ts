@@ -8,11 +8,17 @@
  *
  * Idempotent via content-hash dedupe: re-running only adds new items.
  *
- * Build-safe: if no source is reachable (offline build), the committed
- * store.json is left untouched and the build proceeds (exit 0). A deploy
- * must never fail because a regulator's newsroom was unreachable, and the
- * radar never fabricates publications to fill a gap — failed sources are
- * recorded in the persisted scan report.
+ * Loud failures: this script exits NON-ZERO whenever any source errors
+ * (see lib/ingest/failures.ts), and the failure is recorded in the store's
+ * lastScanReport so the dashboard banner shows it. A scan where every
+ * source failed does not advance lastScanAt, so the data-age banner keeps
+ * reporting the true age of the data.
+ *
+ * Build-safe: the `build` npm script tolerates a failed ingest
+ * (`npm run data:ingest || true`) — a deploy must never fail because a
+ * regulator's newsroom was unreachable, and the radar never fabricates
+ * publications to fill a gap. The failure stays loud in the build log and
+ * in lastScanReport.
  */
 import { readFileSync } from "fs";
 import { join } from "path";
@@ -21,6 +27,7 @@ import { fetchSourceItems } from "@/lib/ingest/live";
 import { ExtractiveSummarizer } from "@/lib/summarize/extractive";
 import { getControls } from "@/lib/map/taxonomy";
 import { runScan } from "@/lib/scan";
+import { formatFailureReport, ingestExitCode } from "@/lib/ingest/failures";
 import { buildActionPlan } from "@/lib/brief/briefing";
 import type {
   Briefing,
@@ -80,11 +87,14 @@ async function main(): Promise<void> {
   }
 
   const store = loadStore();
+  const okCount = results.filter((r) => r.ok).length;
   const report = await runScan(
     store,
     inputs,
     new ExtractiveSummarizer(),
     controls,
+    undefined,
+    { sourcesSucceeded: okCount },
   );
 
   // Backfill action plans for briefings assembled before plans existed.
@@ -115,23 +125,19 @@ async function main(): Promise<void> {
     results,
   };
 
-  const okCount = results.filter((r) => r.ok).length;
-  if (okCount === 0) {
-    // Total outage: keep the committed dataset; the build must not fail.
-    console.warn(
-      "ingest: all sources unreachable — keeping committed store.json, build continues",
-    );
-    return;
-  }
-
+  // Persist the report even when every source failed — the failure must be
+  // visible in the UI, and lastScanAt is left untouched by runScan in that
+  // case, so the data-age banner keeps reporting the true age.
   const written = saveStore(store);
   console.log(
     `ingest: ${okCount}/${results.length} sources ok, +${report.added} added, ` +
       `${report.skipped} skipped → ${store.publications.length} publications, ` +
       `${store.mappings.length} mappings, ${store.briefings.length} briefings → ${written}`,
   );
-  for (const r of results.filter((r) => !r.ok)) {
-    console.warn(`ingest: FAILED ${r.source}: ${r.detail}`);
+  const exitCode = ingestExitCode(results);
+  if (exitCode !== 0) {
+    console.error(formatFailureReport(results));
+    process.exit(exitCode);
   }
 }
 

@@ -100,4 +100,32 @@ describe("scan pipeline", () => {
     expect(store.briefings.every((b) => b.llmUsed === false)).toBe(true);
     expect(store.mappings.every((m) => m.method === "taxonomy")).toBe(true);
   });
+
+  it("does not advance lastScanAt when every source failed", async () => {
+    const store = loadStore("/nonexistent/scan-test.json");
+    store.lastScanAt = "2026-11-18T13:49:13.491Z";
+    const report = await runScan(
+      store,
+      [],
+      new ExtractiveSummarizer(),
+      controls(),
+      undefined,
+      { sourcesSucceeded: 0 },
+    );
+    expect(report.added).toBe(0);
+    // The data-age banner must keep reporting the true age of the data.
+    expect(store.lastScanAt).toBe("2026-11-18T13:49:13.491Z");
+  });
+
+  it("advances lastScanAt when at least one source was reached, even with 0 new items", async () => {
+    const store = loadStore("/nonexistent/scan-test.json");
+    store.lastScanAt = "2026-11-18T13:49:13.491Z";
+    await runScan(store, [], new ExtractiveSummarizer(), controls(), undefined, {
+      sourcesSucceeded: 13,
+    });
+    expect(store.lastScanAt).not.toBe("2026-11-18T13:49:13.491Z");
+    expect(new Date(store.lastScanAt!).getTime()).toBeGreaterThan(
+      new Date("2026-11-18T13:49:13.491Z").getTime(),
+    );
+  });
 });

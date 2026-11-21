@@ -36,6 +36,7 @@ export async function runScan(
   summarizer: Summarizer,
   controls: Control[],
   llmGenerate?: (prompt: string) => Promise<string>,
+  opts?: { sourcesSucceeded?: number },
 ): Promise<ScanReport> {
   const { added, skipped } = upsertPublications(store, inputs);
   const llmUsed = summarizer.usesLlm && typeof llmGenerate === "function";
@@ -85,11 +86,21 @@ export async function runScan(
     store.briefings.push(briefing);
   }
 
-  store.lastScanAt = new Date().toISOString();
+  // lastScanAt is the last scan that actually REACHED a regulator source.
+  // A scan where every source failed must not refresh it, or the data-age
+  // banner would report fresh data that was never fetched. When the caller
+  // does not report source outcomes (legacy callers), a scan still counts
+  // as a successful reach. A scan with live sources still counts even when
+  // every item was already known (0 added) — the feeds were checked.
+  const reachedSource =
+    opts?.sourcesSucceeded === undefined || opts.sourcesSucceeded > 0;
+  if (reachedSource) {
+    store.lastScanAt = new Date().toISOString();
+  }
   return {
     added: added.length,
     skipped,
     publicationIds: added.map((p: Publication) => p.id),
-    at: store.lastScanAt,
+    at: new Date().toISOString(),
   };
 }

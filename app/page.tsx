@@ -6,6 +6,7 @@ import {
   getStore,
 } from "@/lib/data";
 import { PublicationCard } from "@/components/publication-card";
+import { DataAgeBanner } from "@/components/data-age-banner";
 import { FeedFilters } from "@/components/feed-filters";
 import { DashboardCharts } from "@/components/dashboard-charts";
 import type { Severity } from "@/lib/types";
@@ -64,6 +65,9 @@ export default async function DashboardPage({
 
   const critical = store.briefings.filter((b) => b.severity === "critical").length;
   const mappedControls = new Set(store.mappings.map((m) => m.controlId)).size;
+  const failedSources =
+    store.lastScanReport?.results.filter((r) => !r.ok).length ?? 0;
+  const totalSources = store.lastScanReport?.results.length ?? 0;
 
   return (
     <div>
@@ -72,20 +76,14 @@ export default async function DashboardPage({
         <p className="mt-2 max-w-3xl text-[15px] text-ink-soft">
           Every item below was ingested, deduplicated, summarized, and mapped
           to controls by the radar pipeline — no manual triage.
-          {store.lastScanAt && (
-            <>
-              {" "}Last scan{" "}
-              {new Date(store.lastScanAt).toLocaleString("en-US", {
-                month: "short",
-                day: "numeric",
-                hour: "numeric",
-                minute: "2-digit",
-              })}
-              .
-            </>
-          )}
         </p>
       </div>
+
+      <DataAgeBanner
+        lastScanAt={store.lastScanAt}
+        failedSources={failedSources}
+        totalSources={totalSources}
+      />
 
       <div className="mb-8 grid grid-cols-2 gap-4 md:grid-cols-4">
         <Stat icon={<Activity className="h-5 w-5" />} label="Publications tracked" value={store.publications.length} />
